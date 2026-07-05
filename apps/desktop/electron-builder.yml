@@ -13,7 +13,7 @@ files:
 # Auto-updater — uses GitHub Releases
 publish:
   provider: github
-  owner: michael-borck
+  owner: retroverse-studios
   repo: numeron
   releaseType: release
 

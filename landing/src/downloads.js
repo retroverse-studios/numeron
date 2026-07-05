@@ -2,7 +2,7 @@
  * Fetch the latest GitHub Release and populate download links.
  * Falls back gracefully if no release exists yet.
  */
-const REPO = 'michael-borck/numeron';
+const REPO = 'retroverse-studios/numeron';
 const API_URL = `https://api.github.com/repos/${REPO}/releases/latest`;
 
 async function populateDownloads() {
