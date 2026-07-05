@@ -46,7 +46,7 @@ export function Profile() {
 
   const handleShare = () => {
     const encoded = btoa(JSON.stringify(profileInput));
-    const url = `${window.location.origin}/share/${encoded}`;
+    const url = new URL(`${import.meta.env.BASE_URL}share/${encoded}`, window.location.origin).toString();
     navigator.clipboard.writeText(url).then(() => {
       setShareMsg('> SHARE URL COPIED');
       setTimeout(() => setShareMsg(''), 3000);

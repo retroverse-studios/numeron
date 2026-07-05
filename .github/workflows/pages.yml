@@ -1,0 +1,78 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build core package
+        run: pnpm --filter @numeron/core build
+
+      - name: Build web app
+        run: pnpm --filter @numeron/web build
+
+      - name: Build landing page
+        run: pnpm --filter @numeron/landing build
+
+      # Landing page at the domain root, web app under /app/
+      # (the landing page's [OPEN IN BROWSER] button links to /app).
+      # The app's index.html doubles as 404.html so deep links like
+      # /app/profile work with BrowserRouter on GitHub Pages.
+      - name: Assemble site
+        run: |
+          mkdir -p site/app
+          cp -r landing/dist/* site/
+          cp -r apps/web/dist/* site/app/
+          cp site/app/index.html site/404.html
+          touch site/.nojekyll
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
