@@ -46,10 +46,12 @@ jobs:
           targets: aarch64-apple-darwin,x86_64-apple-darwin
 
       - run: pnpm install --frozen-lockfile
-      # Build every workspace dependency of the tauri app (topological order),
-      # so newly added packages are never missed. Packages without a build
-      # script (e.g. @numeron/pdf, which ships TS source) are skipped.
-      - run: pnpm --filter "numeron-tauri^..." build
+      # Build the tauri app's workspace dependencies that need compiling.
+      # (@numeron/pdf ships TypeScript source directly, so only core needs a
+      # build. Keep this list in sync with apps/tauri/package.json deps; the
+      # "numeron-tauri^..." dependency filter mis-selects the app itself on
+      # Windows runners, so packages are listed explicitly.)
+      - run: pnpm --filter @numeron/core build
 
       - uses: tauri-apps/tauri-action@v0
         env:
