@@ -1,9 +1,9 @@
 name: Release Tauri App
 
 # Builds Tauri desktop installers when a v* tag is pushed and attaches them to
-# a draft GitHub release (same pattern as ASTRON). Unsigned builds: macOS users
-# need right-click → Open the first time (code signing needs Apple/MS
-# certificates — a later step).
+# a draft GitHub release (same pattern as ASTRON). macOS bundles are signed
+# with a Developer ID certificate and notarized by Apple during bundling
+# (Windows/Linux remain unsigned).
 on:
   push:
     tags: ["v*"]
@@ -46,11 +46,22 @@ jobs:
           targets: aarch64-apple-darwin,x86_64-apple-darwin
 
       - run: pnpm install --frozen-lockfile
-      - run: pnpm --filter @numeron/core build
+      # Build every workspace dependency of the tauri app (topological order),
+      # so newly added packages are never missed. Packages without a build
+      # script (e.g. @numeron/pdf, which ships TS source) are skipped.
+      - run: pnpm --filter "numeron-tauri^..." build
 
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # macOS code signing (presence of these triggers signing in the
+          # Tauri bundler) and notarization (Apple ID + app-specific password).
+          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         with:
           projectPath: apps/tauri
           tagName: ${{ github.ref_name }}
