@@ -1,6 +1,6 @@
 {
   "name": "numeron-tauri",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "description": "NUMERON — The Ancient Science of Numbers, Decoded. Tauri desktop app (the web app in a native shell).",
   "author": "Retroverse Studios",
@@ -14,6 +14,10 @@
     "tauri": "tauri"
   },
   "dependencies": {
+    "@fontsource/atkinson-hyperlegible": "^5.2.8",
+    "@fontsource/cinzel": "^5.2.8",
+    "@fontsource/courier-prime": "^5.2.8",
+    "@fontsource/share-tech-mono": "^5.2.7",
     "@numeron/core": "workspace:*",
     "@numeron/pdf": "workspace:*",
     "@react-pdf/renderer": "^4.3.0",
