@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { TerminalCard } from '../components/TerminalCard';
 import { NumberDisplay } from '../components/NumberDisplay';
+import { ResonanceScope } from '../components/ResonanceScope';
 import {
   sanitizeName,
   sanitizeDate,
@@ -170,6 +171,16 @@ export function Compatibility() {
               <NumberDisplay label="Life Path" result={result.lp2} />
             </TerminalCard>
           </div>
+
+          {/* Resonance scope */}
+          <TerminalCard title="RESONANCE SCOPE">
+            <ResonanceScope
+              lifePath1={result.lp1.value}
+              lifePath2={result.lp2.value}
+              sharedNumbers={result.sharedNumbers}
+              tensionNumbers={result.tensionNumbers}
+            />
+          </TerminalCard>
 
           {/* Combined */}
           <TerminalCard title="COMBINED NUMBER">
