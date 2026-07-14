@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { NumberResult } from '@numeron/core';
-import { interpretations } from '@numeron/core';
+import { voicedInterpretation } from '@numeron/core';
+import { useStore } from '../store';
 import { ReductionTrace } from './ReductionTrace';
 import { ThreeLensToggle } from './ThreeLensToggle';
 
@@ -19,7 +20,8 @@ export function NumberDisplay({
 }: NumberDisplayProps) {
   const [showSteps, setShowSteps] = useState(false);
   const [copied, setCopied] = useState(false);
-  const interp = interpretations[result.value];
+  const { narrator } = useStore();
+  const interp = voicedInterpretation(result.value, narrator);
 
   const handleCopy = () => {
     const lines = [

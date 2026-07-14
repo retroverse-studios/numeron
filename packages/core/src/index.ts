@@ -77,8 +77,17 @@ export {
   easterEggs,
   chaosInterpretations,
   culturalContexts,
+  NARRATORS,
+  NARRATOR_OPTIONS,
+  voicedInterpretation,
 } from './interpretations/index.js';
-export type { AboutSection, EasterEgg, CulturalContext } from './interpretations/index.js';
+export type {
+  AboutSection,
+  EasterEgg,
+  CulturalContext,
+  NarratorId,
+  VoicedLenses,
+} from './interpretations/index.js';
 
 // AI reading (live mode — user's own key, browser-direct)
 export {

@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import type { ProfileInput, NumerologyProfile, NumerologySystem } from '@numeron/core';
-import { generateAllSystemProfiles } from '@numeron/core';
+import type { ProfileInput, NumerologyProfile, NumerologySystem, NarratorId } from '@numeron/core';
+import { generateAllSystemProfiles, NARRATORS } from '@numeron/core';
 
 type Theme = 'phosphor' | 'arcane' | 'high-contrast';
 
@@ -8,6 +8,10 @@ interface NumeronState {
   // Theme
   theme: Theme;
   setTheme: (theme: Theme) => void;
+
+  // Narrator voice for the static interpretation texts
+  narrator: NarratorId;
+  setNarrator: (narrator: NarratorId) => void;
 
   // Accessibility
   reduceMotion: boolean;
@@ -37,6 +41,15 @@ export const useStore = create<NumeronState>((set) => ({
   setTheme: (theme) => {
     document.documentElement.setAttribute('data-theme', theme);
     set({ theme });
+  },
+
+  narrator: (() => {
+    const stored = localStorage.getItem('numeron-narrator') as NarratorId | null;
+    return stored && (stored === 'plain' || stored in NARRATORS) ? stored : 'plain';
+  })(),
+  setNarrator: (narrator) => {
+    localStorage.setItem('numeron-narrator', narrator);
+    set({ narrator });
   },
 
   reduceMotion: false,

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { NARRATOR_OPTIONS, type NarratorId } from '@numeron/core';
 import { useStore } from '../store';
 
 const navLinks = [
@@ -18,8 +19,24 @@ const navLinks = [
 
 export function Nav() {
   const location = useLocation();
-  const { theme, setTheme } = useStore();
+  const { theme, setTheme, narrator, setNarrator } = useStore();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const narratorSelect = (
+    <select
+      value={narrator}
+      onChange={(e) => setNarrator(e.target.value as NarratorId)}
+      aria-label="Narrator voice for interpretation texts"
+      className="font-terminal text-xs bg-transparent border border-[var(--border)] text-[var(--text-secondary)] hover:text-[var(--accent)] px-2 py-1 min-h-[44px] cursor-pointer"
+      title="Narrator voice — same claims, different diction"
+    >
+      {NARRATOR_OPTIONS.map((n) => (
+        <option key={n.id} value={n.id}>
+          {n.label}
+        </option>
+      ))}
+    </select>
+  );
 
   return (
     <nav className="border-b border-[var(--border)] bg-[var(--bg-primary)]" aria-label="Main navigation">
@@ -44,6 +61,9 @@ export function Nav() {
               {link.label}
             </Link>
           ))}
+
+          {/* Narrator voice */}
+          {narratorSelect}
 
           {/* Theme toggle */}
           <button
@@ -92,6 +112,10 @@ export function Nav() {
           >
             {'> '}[{theme === 'phosphor' ? 'ARCANE' : 'PHOSPHOR'}]
           </button>
+          <div className="py-2 flex items-center gap-2">
+            <span className="font-terminal text-sm text-[var(--text-secondary)]">{'> '}VOICE</span>
+            {narratorSelect}
+          </div>
         </div>
       )}
     </nav>

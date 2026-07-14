@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Interpretation } from '@numeron/core';
-import { chaosInterpretations } from '@numeron/core';
+import { chaosInterpretations, voicedInterpretation } from '@numeron/core';
 import { useStore } from '../store';
 
 type Lens = 'light' | 'truth' | 'shadow';
@@ -11,10 +11,14 @@ interface ThreeLensToggleProps {
 }
 
 export function ThreeLensToggle({ interpretation, numberValue }: ThreeLensToggleProps) {
-  const { chaosMode } = useStore();
+  const { chaosMode, narrator } = useStore();
   const [activeLens, setActiveLens] = useState<Lens>('light');
 
   const lenses: Lens[] = ['light', 'truth', 'shadow'];
+
+  // Narrator voices re-word the lens texts (same claims, different diction);
+  // chaos mode still outranks everything.
+  const voiced = (numberValue && voicedInterpretation(numberValue, narrator)) || interpretation;
 
   const getText = (lens: Lens): string => {
     if (chaosMode && numberValue && chaosInterpretations[numberValue]) {
@@ -22,11 +26,11 @@ export function ThreeLensToggle({ interpretation, numberValue }: ThreeLensToggle
     }
     switch (lens) {
       case 'light':
-        return interpretation.positive;
+        return voiced.positive;
       case 'truth':
-        return interpretation.neutral;
+        return voiced.neutral;
       case 'shadow':
-        return interpretation.shadow;
+        return voiced.shadow;
     }
   };
 

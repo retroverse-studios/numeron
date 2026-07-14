@@ -1,4 +1,5 @@
 export { interpretations } from './numbers.js';
+export * from './voices/index.js';
 export {
   microDisclaimers,
   DISCLAIMER_BANNER,
