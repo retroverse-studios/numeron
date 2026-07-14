@@ -1,0 +1,36 @@
+{
+  "name": "numeron-tauri",
+  "version": "0.1.0",
+  "private": true,
+  "description": "NUMERON — The Ancient Science of Numbers, Decoded. Tauri desktop app (the web app in a native shell).",
+  "author": "Retroverse Studios",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "CARGO_TARGET_DIR=\"$HOME/.cache/numeron-cargo-target\" tauri dev",
+    "build": "CARGO_TARGET_DIR=\"$HOME/.cache/numeron-cargo-target\" tauri build",
+    "dev:frontend": "vite",
+    "build:frontend": "vite build",
+    "tauri": "tauri"
+  },
+  "dependencies": {
+    "@numeron/core": "workspace:*",
+    "@numeron/pdf": "workspace:*",
+    "@react-pdf/renderer": "^4.3.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "react-router-dom": "^6.28.0",
+    "zustand": "^5.0.0"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.2.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.4.0",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.7.0",
+    "vite": "^6.0.0"
+  }
+}

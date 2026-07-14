@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <!-- NUMERON app icon: the Lo Shu magic square (every line sums to 15)
+       on a phosphor CRT tile. Center 5 glows green; the rest run amber. -->
+  <defs>
+    <radialGradient id="crt" cx="50%" cy="42%" r="75%">
+      <stop offset="0%" stop-color="#141410"/>
+      <stop offset="100%" stop-color="#0a0a08"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1024" height="1024" rx="180" fill="url(#crt)"/>
+  <rect x="26" y="26" width="972" height="972" rx="162" fill="none" stroke="#ffb000" stroke-opacity="0.35" stroke-width="10"/>
+
+  <!-- grid -->
+  <g stroke="#ffb000" stroke-opacity="0.45" stroke-width="8">
+    <line x1="405" y1="200" x2="405" y2="824"/>
+    <line x1="619" y1="200" x2="619" y2="824"/>
+    <line x1="200" y1="408" x2="824" y2="408"/>
+    <line x1="200" y1="616" x2="824" y2="616"/>
+  </g>
+
+  <!-- Lo Shu digits -->
+  <g font-family="Menlo, Consolas, monospace" font-size="170" font-weight="bold" text-anchor="middle" fill="#ffb000">
+    <text x="298" y="360">4</text>
+    <text x="512" y="360">9</text>
+    <text x="726" y="360">2</text>
+    <text x="298" y="568">3</text>
+    <text x="726" y="568">7</text>
+    <text x="298" y="776">8</text>
+    <text x="512" y="776">1</text>
+    <text x="726" y="776">6</text>
+  </g>
+
+  <!-- the glowing center -->
+  <circle cx="512" cy="510" r="86" fill="#39ff14" opacity="0.12"/>
+  <text x="512" y="568" font-family="Menlo, Consolas, monospace" font-size="170" font-weight="bold" text-anchor="middle" fill="#39ff14">5</text>
+</svg>
