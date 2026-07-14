@@ -1,6 +1,6 @@
 {
   "name": "numeron-tauri",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "NUMERON — The Ancient Science of Numbers, Decoded. Tauri desktop app (the web app in a native shell).",
   "author": "Retroverse Studios",
