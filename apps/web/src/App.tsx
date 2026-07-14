@@ -12,6 +12,7 @@ import { Explore } from './pages/Explore';
 import { About } from './pages/About';
 import { Calendar } from './pages/Calendar';
 import { Compatibility } from './pages/Compatibility';
+import { Reading } from './pages/Reading';
 import { Share } from './pages/Share';
 import { ReverseLookup } from './pages/ReverseLookup';
 
@@ -50,6 +51,7 @@ export function App() {
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/compare" element={<Compatibility />} />
           <Route path="/reverse" element={<ReverseLookup />} />
+          <Route path="/reading" element={<Reading />} />
           <Route path="/report" element={<Suspense fallback={<LoadingFallback />}><Report /></Suspense>} />
           <Route path="/share/:encoded" element={<Share />} />
           <Route path="/about" element={<About />} />

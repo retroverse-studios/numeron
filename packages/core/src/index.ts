@@ -80,6 +80,16 @@ export {
 } from './interpretations/index.js';
 export type { AboutSection, EasterEgg, CulturalContext } from './interpretations/index.js';
 
+// AI reading (live mode — user's own key, browser-direct)
+export {
+  VOICES,
+  DEFAULT_AI_MODEL,
+  buildReadingPrompt,
+  aiReading,
+  aiProvenance,
+} from './ai.js';
+export type { AiOptions } from './ai.js';
+
 // Insights (session stats, did-you-know facts)
 export { didYouKnowFacts, generateSessionStats } from './insights/index.js';
 export type { SessionStats } from './insights/index.js';

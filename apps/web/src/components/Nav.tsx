@@ -11,6 +11,7 @@ const navLinks = [
   { to: '/calendar', label: 'CALENDAR' },
   { to: '/compare', label: 'COMPARE' },
   { to: '/reverse', label: 'REVERSE' },
+  { to: '/reading', label: 'READING' },
   { to: '/report', label: 'PDF' },
   { to: '/about', label: 'ABOUT' },
 ];
