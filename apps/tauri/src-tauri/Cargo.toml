@@ -1,6 +1,6 @@
 [package]
 name = "numeron-tauri"
-version = "0.1.4"
+version = "0.1.5"
 description = "NUMERON — The Ancient Science of Numbers, Decoded."
 license = "MIT"
 edition = "2021"

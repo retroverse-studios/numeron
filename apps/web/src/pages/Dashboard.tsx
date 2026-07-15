@@ -20,7 +20,6 @@ export function Dashboard() {
   const [preferredName, setPreferredName] = useState('');
   const [address, setAddress] = useState('');
   const [showOptional, setShowOptional] = useState(false);
-  const [saveLabel, setSaveLabel] = useState('');
   const [error, setError] = useState('');
 
   /** Read the form, validating name and date. Returns null (and sets error) on failure. */
@@ -59,14 +58,6 @@ export function Dashboard() {
     if (!input) return;
     generateProfiles(input);
     navigate('/profile');
-  };
-
-  const handleSave = () => {
-    const input = readInput();
-    if (!input) return;
-    const trimmed = saveLabel.trim();
-    savedProfiles.save(trimmed || input.fullBirthName, input);
-    setSaveLabel('');
   };
 
   const loadProfile = (p: SavedProfile) => {
@@ -261,27 +252,6 @@ export function Dashboard() {
           >
             [ CALCULATE ]
           </button>
-
-          {/* Save this profile for next time */}
-          <div className="flex gap-2 pt-2 border-t border-[var(--border)]">
-            <input
-              type="text"
-              value={saveLabel}
-              onChange={(e) => setSaveLabel(e.target.value)}
-              placeholder="label to save as (defaults to the name)"
-              className={inputClass + ' text-sm'}
-              maxLength={80}
-            />
-            <button
-              type="button"
-              onClick={handleSave}
-              className="border border-[var(--border)] text-[var(--text-secondary)] font-terminal
-                text-xs tracking-widest px-4 min-h-[44px] whitespace-nowrap
-                hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
-            >
-              [ SAVE ]
-            </button>
-          </div>
         </form>
       </TerminalCard>
 

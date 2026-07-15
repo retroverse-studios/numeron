@@ -8,11 +8,13 @@ import { EasterEggDisplay } from '../components/EasterEggDisplay';
 import { SessionStatsDisplay } from '../components/SessionStats';
 import { DidYouKnow } from '../components/DidYouKnow';
 import { detectEasterEggs } from '../hooks/useEasterEggs';
+import { useSavedProfiles } from '../hooks/useSavedProfiles';
 import { microDisclaimers, generateSessionStats } from '@numeron/core';
 
 export function Profile() {
   const { profiles, activeSystem, setActiveSystem, profileInput } = useStore();
-  const [shareMsg, setShareMsg] = useState('');
+  const savedProfiles = useSavedProfiles();
+  const [statusMsg, setStatusMsg] = useState('');
 
   if (!profiles || !profileInput) {
     return (
@@ -44,12 +46,22 @@ export function Profile() {
   const easterEggs = detectEasterEggs(profileInput, profile);
   const sessionStats = generateSessionStats(profiles);
 
+  const flashStatus = (msg: string) => {
+    setStatusMsg(msg);
+    setTimeout(() => setStatusMsg(''), 3000);
+  };
+
+  const handleSave = () => {
+    // Save under the birth name; re-saving replaces the same label.
+    savedProfiles.save(profileInput.fullBirthName, profileInput);
+    flashStatus('> SAVED — LOAD IT FROM THE HOME SCREEN');
+  };
+
   const handleShare = () => {
     const encoded = btoa(JSON.stringify(profileInput));
     const url = new URL(`${import.meta.env.BASE_URL}share/${encoded}`, window.location.origin).toString();
     navigator.clipboard.writeText(url).then(() => {
-      setShareMsg('> SHARE URL COPIED');
-      setTimeout(() => setShareMsg(''), 3000);
+      flashStatus('> SHARE URL COPIED');
     });
   };
 
@@ -64,16 +76,25 @@ export function Profile() {
           <h1 className="font-terminal text-2xl text-[var(--accent)] text-glow">
             {'> '}PROFILE: {profileInput.fullBirthName.toUpperCase()}
           </h1>
-          <button
-            onClick={handleShare}
-            className="font-terminal text-xs text-[var(--text-secondary)] hover:text-[var(--accent)]
-              border border-[var(--border)] px-3 py-1 min-h-[44px] transition-colors shrink-0"
-          >
-            [ SHARE ]
-          </button>
+          <div className="flex gap-2 shrink-0">
+            <button
+              onClick={handleSave}
+              className="font-terminal text-xs text-[var(--text-secondary)] hover:text-[var(--accent)]
+                border border-[var(--border)] px-3 py-1 min-h-[44px] transition-colors"
+            >
+              [ SAVE ]
+            </button>
+            <button
+              onClick={handleShare}
+              className="font-terminal text-xs text-[var(--text-secondary)] hover:text-[var(--accent)]
+                border border-[var(--border)] px-3 py-1 min-h-[44px] transition-colors"
+            >
+              [ SHARE ]
+            </button>
+          </div>
         </div>
-        {shareMsg && (
-          <p className="font-terminal text-xs text-[var(--accent-green)]">{shareMsg}</p>
+        {statusMsg && (
+          <p className="font-terminal text-xs text-[var(--accent-green)]">{statusMsg}</p>
         )}
         <p className="font-terminal text-xs text-[var(--text-secondary)]">
           DOB: {profileInput.dateOfBirth}
