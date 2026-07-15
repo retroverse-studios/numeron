@@ -13,7 +13,6 @@ const navLinks = [
   { to: '/compare', label: 'COMPARE' },
   { to: '/reverse', label: 'REVERSE' },
   { to: '/reading', label: 'READING' },
-  { to: '/report', label: 'PDF' },
   { to: '/about', label: 'ABOUT' },
 ];
 
@@ -39,10 +38,16 @@ export function Nav() {
   );
 
   return (
-    <nav className="border-b border-[var(--border)] bg-[var(--bg-primary)]" aria-label="Main navigation">
+    <nav
+      className="border-b border-[var(--border)] bg-[var(--bg-primary)]"
+      aria-label="Main navigation"
+    >
       <div className="max-w-6xl mx-auto px-4 flex items-center justify-between h-14">
         {/* Logo */}
-        <Link to="/" className="font-terminal text-lg tracking-widest text-[var(--accent)] text-glow">
+        <Link
+          to="/"
+          className="font-terminal text-lg tracking-widest text-[var(--accent)] text-glow"
+        >
           NUMERON
         </Link>
 
@@ -100,7 +105,8 @@ export function Nav() {
                   : 'text-[var(--text-secondary)]'
               }`}
             >
-              {'> '}{link.label}
+              {'> '}
+              {link.label}
             </Link>
           ))}
           <button

@@ -3,12 +3,31 @@ import { useEffect, useState } from 'react';
 
 export interface SavedProfile {
   id: string;
-  /** Display label — defaults to the birth name, editable on save. */
+  /** Display label — defaults to "Name — DOB", editable on save and in the overlay. */
   label: string;
   input: ProfileInput;
 }
 
 const KEY = 'numeron-profiles';
+
+/**
+ * Identity of a saved chart: the full input, not the display label. Two people
+ * with the same name but different birth dates (or one person with different
+ * preferred name / address) produce different signatures and coexist.
+ */
+export function profileSignature(input: ProfileInput): string {
+  return [
+    input.fullBirthName.trim().toLowerCase(),
+    input.dateOfBirth,
+    (input.preferredName ?? '').trim().toLowerCase(),
+    (input.address ?? '').trim().toLowerCase(),
+  ].join('|');
+}
+
+/** Default label for a chart: "Full Name — YYYY-MM-DD". */
+export function defaultLabel(input: ProfileInput): string {
+  return `${input.fullBirthName} — ${input.dateOfBirth}`;
+}
 
 function load(): SavedProfile[] {
   try {
@@ -29,10 +48,16 @@ export function useSavedProfiles() {
   return {
     profiles,
     save(label: string, input: ProfileInput): SavedProfile {
-      const saved = { id: crypto.randomUUID(), label, input };
-      // Replace any existing entry under the same label, like ASTRON's people list.
-      setProfiles((p) => [...p.filter((x) => x.label !== label), saved]);
+      const sig = profileSignature(input);
+      const existing = profiles.find((x) => profileSignature(x.input) === sig);
+      const saved: SavedProfile = { id: existing?.id ?? crypto.randomUUID(), label, input };
+      // Update the entry with the same input signature, otherwise append.
+      // Distinct inputs (same name, different DOB) never clobber each other.
+      setProfiles((p) => [...p.filter((x) => profileSignature(x.input) !== sig), saved]);
       return saved;
+    },
+    rename(id: string, label: string) {
+      setProfiles((p) => p.map((x) => (x.id === id ? { ...x, label } : x)));
     },
     remove(id: string) {
       setProfiles((p) => p.filter((x) => x.id !== id));

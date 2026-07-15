@@ -4,7 +4,8 @@ import { TerminalCard } from '../components/TerminalCard';
 import { useStore } from '../store';
 import { sanitizeName, sanitizeDate, sanitizeAddress } from '@numeron/core';
 import { detectEdgeCases } from '../hooks/useEdgeCases';
-import { useSavedProfiles, type SavedProfile } from '../hooks/useSavedProfiles';
+import { useSavedProfiles } from '../hooks/useSavedProfiles';
+import { LoadProfileOverlay } from '../components/LoadProfileOverlay';
 
 const inputClass = `w-full bg-transparent border border-[var(--border)] text-[var(--text-primary)]
   font-body px-3 py-2 min-h-[44px]
@@ -20,6 +21,7 @@ export function Dashboard() {
   const [preferredName, setPreferredName] = useState('');
   const [address, setAddress] = useState('');
   const [showOptional, setShowOptional] = useState(false);
+  const [showLoad, setShowLoad] = useState(false);
   const [error, setError] = useState('');
 
   /** Read the form, validating name and date. Returns null (and sets error) on failure. */
@@ -60,15 +62,6 @@ export function Dashboard() {
     navigate('/profile');
   };
 
-  const loadProfile = (p: SavedProfile) => {
-    setError('');
-    setName(p.input.fullBirthName);
-    setDob(p.input.dateOfBirth);
-    setPreferredName(p.input.preferredName ?? '');
-    setAddress(p.input.address ?? '');
-    if (p.input.preferredName || p.input.address) setShowOptional(true);
-  };
-
   // Live edge case warnings
   const liveInput = {
     fullBirthName: name,
@@ -93,47 +86,34 @@ export function Dashboard() {
         </p>
       </div>
 
+      {showLoad && (
+        <LoadProfileOverlay
+          profiles={savedProfiles.profiles}
+          onRename={savedProfiles.rename}
+          onDelete={savedProfiles.remove}
+          onClose={() => setShowLoad(false)}
+        />
+      )}
+
       {/* Profile form */}
       <TerminalCard title="BEGIN READING">
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Load a saved profile */}
+          {/* Load a saved chart */}
           {savedProfiles.profiles.length > 0 && (
-            <div className="flex items-center gap-2 border-b border-[var(--border)] pb-4">
-              <label htmlFor="load-profile" className="font-terminal text-xs text-[var(--text-secondary)]">
-                {'> '}LOAD
-              </label>
-              <select
-                id="load-profile"
-                value=""
-                onChange={(e) => {
-                  const p = savedProfiles.profiles.find((x) => x.id === e.target.value);
-                  if (p) loadProfile(p);
-                }}
-                className={inputClass + ' flex-1 min-h-[36px] py-1'}
+            <div className="flex items-center justify-between gap-2 border-b border-[var(--border)] pb-4">
+              <span className="font-terminal text-xs text-[var(--text-secondary)]">
+                {'> '}
+                {savedProfiles.profiles.length} saved chart
+                {savedProfiles.profiles.length === 1 ? '' : 's'}
+              </span>
+              <button
+                type="button"
+                onClick={() => setShowLoad(true)}
+                className="font-terminal text-xs text-[var(--text-secondary)] hover:text-[var(--accent)]
+                  border border-[var(--border)] px-3 py-1 min-h-[44px] transition-colors"
               >
-                <option value="">saved profiles…</option>
-                {savedProfiles.profiles.map((p) => (
-                  <option key={p.id} value={p.id}>
-                    {p.label}
-                  </option>
-                ))}
-              </select>
-              <select
-                value=""
-                aria-label="Delete a saved profile"
-                title="Delete a saved profile"
-                onChange={(e) => {
-                  if (e.target.value) savedProfiles.remove(e.target.value);
-                }}
-                className={inputClass + ' w-16 min-h-[36px] py-1'}
-              >
-                <option value="">✕</option>
-                {savedProfiles.profiles.map((p) => (
-                  <option key={p.id} value={p.id}>
-                    delete {p.label}
-                  </option>
-                ))}
-              </select>
+                [ LOAD ]
+              </button>
             </div>
           )}
 
@@ -181,7 +161,8 @@ export function Dashboard() {
             onClick={() => setShowOptional(!showOptional)}
             className="font-terminal text-xs text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors"
           >
-            {'> '}{showOptional ? 'HIDE' : 'SHOW'} OPTIONAL FIELDS
+            {'> '}
+            {showOptional ? 'HIDE' : 'SHOW'} OPTIONAL FIELDS
           </button>
 
           {showOptional && (
