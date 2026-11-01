@@ -46,8 +46,9 @@ export interface NumerologyProfile {
   input: ProfileInput;
   lifePath: NumberResult;
   expression: NumberResult;
-  soulUrge: NumberResult;
-  personality: NumberResult;
+  /** Only systems that define vowel/consonant splits provide these (not Lo Shu / Abjad) */
+  soulUrge?: NumberResult;
+  personality?: NumberResult;
   maturity: NumberResult;
   personalYear: NumberResult;
   personalMonth: NumberResult;

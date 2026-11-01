@@ -36,7 +36,7 @@ numeron/
 │   └── pdf/        # PDF report templates (@react-pdf/renderer)
 ├── apps/
 │   ├── web/        # React + Vite web app (Tailwind, Zustand, React Router)
-│   └── desktop/    # Electron wrapper (electron-vite, auto-update via GitHub Releases)
+│   └── tauri/      # Tauri desktop app (signed auto-updater via GitHub Releases)
 └── landing/        # Static landing page (digit-rain hero, download links)
 ```
 
@@ -53,7 +53,7 @@ pnpm install
 pnpm --filter @numeron/web dev
 
 # Desktop app
-pnpm --filter numeron-desktop dev
+pnpm --filter numeron-tauri dev
 
 # Landing page
 pnpm --filter @numeron/landing dev
@@ -69,7 +69,7 @@ pnpm typecheck   # TypeScript, strict mode
 pnpm format      # Prettier
 ```
 
-Desktop builds and releases are automated via GitHub Actions (`.github/workflows/release.yml`) — push a version tag and `electron-builder` publishes Windows/macOS/Linux artefacts to GitHub Releases, which the app's auto-updater consumes.
+Desktop builds and releases are automated via GitHub Actions (`.github/workflows/release-tauri.yml`) — push a version tag and Tauri publishes Windows/macOS/Linux artefacts to GitHub Releases, which the app's signed auto-updater consumes.
 
 ## Privacy
 

@@ -18,7 +18,7 @@ import '@fontsource/atkinson-hyperlegible/400.css';
 import '@fontsource/atkinson-hyperlegible/700.css';
 import '@/index.css';
 
-document.documentElement.setAttribute('data-theme', 'phosphor');
+// Theme attribute is applied by the web store from the saved preference.
 
 // Desktop uses HashRouter (no server for history mode)
 ReactDOM.createRoot(document.getElementById('root')!).render(

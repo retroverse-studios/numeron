@@ -1,5 +1,5 @@
 import { useCallback, lazy, Suspense } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 import { Nav } from './components/Nav';
 import { DisclaimerBanner } from './components/DisclaimerBanner';
 import { useKonamiCode } from './hooks/useKonamiCode';
@@ -52,14 +52,37 @@ export function App() {
           <Route path="/compare" element={<Compatibility />} />
           <Route path="/reverse" element={<ReverseLookup />} />
           <Route path="/reading" element={<Reading />} />
-          <Route path="/report" element={<Suspense fallback={<LoadingFallback />}><Report /></Suspense>} />
+          <Route
+            path="/report"
+            element={
+              <Suspense fallback={<LoadingFallback />}>
+                <Report />
+              </Suspense>
+            }
+          />
           <Route path="/share/:encoded" element={<Share />} />
           <Route path="/about" element={<About />} />
+          <Route
+            path="*"
+            element={
+              <div className="max-w-2xl mx-auto text-center py-16 space-y-4">
+                <p className="font-terminal text-sm text-[var(--text-secondary)]">
+                  {'> '}404 // THIS NUMBER DOES NOT REDUCE
+                </p>
+                <Link
+                  to="/"
+                  className="inline-block font-terminal text-xs text-[var(--accent)] border border-[var(--accent)] px-4 py-2 hover:bg-[var(--accent)] hover:text-[var(--bg-primary)] transition-colors"
+                >
+                  [ BACK TO START ]
+                </Link>
+              </div>
+            }
+          />
         </Routes>
       </main>
       <footer className="border-t border-[var(--border)] py-4 px-4 text-center">
         <span className="font-terminal text-xs text-[var(--text-secondary)]">
-          NUMERON v0.1.0 // Retroverse Studios // Entertainment only
+          NUMERON // Retroverse Studios // Entertainment only
         </span>
       </footer>
     </div>

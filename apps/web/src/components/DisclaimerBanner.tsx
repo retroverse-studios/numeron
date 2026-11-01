@@ -11,7 +11,9 @@ export function DisclaimerBanner() {
       <div className="border border-[var(--accent)] bg-[var(--bg-primary)] p-6 sm:p-8 max-w-lg w-full font-terminal text-sm space-y-3">
         <div className="text-[var(--accent)] text-glow">{DISCLAIMER_BANNER.title}</div>
         {DISCLAIMER_BANNER.lines.map((line, i) => (
-          <div key={i} className="text-[var(--text-secondary)]">{line}</div>
+          <div key={i} className="text-[var(--text-secondary)]">
+            {line}
+          </div>
         ))}
         <div className="pt-4 flex items-center justify-between">
           <span className="text-[var(--text-secondary)]">{DISCLAIMER_BANNER.prompt}</span>

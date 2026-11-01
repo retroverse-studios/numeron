@@ -96,9 +96,7 @@ export function Compatibility() {
 
   return (
     <div className="max-w-4xl mx-auto space-y-8">
-      <h1 className="font-terminal text-2xl text-[var(--accent)] text-glow">
-        {'> '}COMPATIBILITY
-      </h1>
+      <h1 className="font-terminal text-2xl text-[var(--accent)] text-glow">{'> '}COMPATIBILITY</h1>
 
       <form onSubmit={handleCompare} className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Person 1 */}

@@ -22,9 +22,7 @@ export function Decode() {
 
   return (
     <div className="max-w-4xl mx-auto space-y-8">
-      <h1 className="font-terminal text-2xl text-[var(--accent)] text-glow">
-        {'> '}DECODE MODE
-      </h1>
+      <h1 className="font-terminal text-2xl text-[var(--accent)] text-glow">{'> '}DECODE MODE</h1>
       <p className="font-body text-sm text-[var(--text-secondary)]">
         Paste any text. NUMERON reduces it to numbers.
       </p>

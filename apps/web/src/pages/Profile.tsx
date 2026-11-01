@@ -10,7 +10,7 @@ import { DidYouKnow } from '../components/DidYouKnow';
 import { detectEasterEggs } from '../hooks/useEasterEggs';
 import { useSavedProfiles, defaultLabel } from '../hooks/useSavedProfiles';
 import { LoadProfileOverlay } from '../components/LoadProfileOverlay';
-import { microDisclaimers, generateSessionStats } from '@numeron/core';
+import { microDisclaimers, generateSessionStats, encodeSharePayload } from '@numeron/core';
 
 export function Profile() {
   const { profiles, activeSystem, setActiveSystem, profileInput } = useStore();
@@ -96,14 +96,18 @@ export function Profile() {
   };
 
   const handleShare = () => {
-    const encoded = btoa(JSON.stringify(profileInput));
     const url = new URL(
-      `${import.meta.env.BASE_URL}share/${encoded}`,
+      `${import.meta.env.BASE_URL}share/${encodeSharePayload(profileInput)}`,
       window.location.origin,
     ).toString();
-    navigator.clipboard.writeText(url).then(() => {
-      flashStatus('> SHARE URL COPIED');
-    });
+    if (!navigator.clipboard?.writeText) {
+      flashStatus(`> SHARE URL: ${url}`);
+      return;
+    }
+    navigator.clipboard
+      .writeText(url)
+      .then(() => flashStatus('> SHARE URL COPIED'))
+      .catch(() => flashStatus(`> SHARE URL: ${url}`));
   };
 
   return (
@@ -238,13 +242,27 @@ export function Profile() {
           <NumberDisplay label="Expression" result={profile.expression} />
         </TerminalCard>
 
-        <TerminalCard title="SOUL URGE">
-          <NumberDisplay label="Soul Urge" result={profile.soulUrge} />
-        </TerminalCard>
+        {profile.soulUrge && (
+          <TerminalCard title="SOUL URGE">
+            <NumberDisplay label="Soul Urge" result={profile.soulUrge} />
+          </TerminalCard>
+        )}
 
-        <TerminalCard title="PERSONALITY">
-          <NumberDisplay label="Personality" result={profile.personality} />
-        </TerminalCard>
+        {profile.personality && (
+          <TerminalCard title="PERSONALITY">
+            <NumberDisplay label="Personality" result={profile.personality} />
+          </TerminalCard>
+        )}
+
+        {!profile.soulUrge && !profile.personality && (
+          <TerminalCard title="SOUL URGE / PERSONALITY">
+            <p className="font-body text-sm text-[var(--text-secondary)]">
+              {'> '}Not part of the {systemLabels[activeSystem]} tradition — this system has no
+              vowel/consonant split. Switch to Pythagorean, Chaldean, or Kabbalistic for Soul Urge
+              and Personality numbers.
+            </p>
+          </TerminalCard>
+        )}
       </div>
 
       {/* Secondary numbers */}

@@ -28,7 +28,7 @@ export const dj: Record<number, VoicedLenses> = {
     neutral:
       "You're listening to the number of synthesis and expression. The Three is the first number that makes something new — call and response resolving into a chorus; thesis, antithesis, synthesis. In the old liner notes it's the Empress in her garden, two forces blending into abundance. Creativity, communication, the inner life turned outward through the speakers. That's the signal tonight.",
     shadow:
-      "Now the sad song I spin anyway, because honesty is the format here. Scattered energy mistaken for versatility; a slick surface mistaken for charm. The shadow of 3 is the creative who cues up every track and finishes none — the performer who only feels real with an audience listening, the talker who keeps talking so they never have to feel. Under all that brightness, friend, a fear of the deep cut.",
+      'Now the sad song I spin anyway, because honesty is the format here. Scattered energy mistaken for versatility; a slick surface mistaken for charm. The shadow of 3 is the creative who cues up every track and finishes none — the performer who only feels real with an audience listening, the talker who keeps talking so they never have to feel. Under all that brightness, friend, a fear of the deep cut.',
   },
   4: {
     positive:
@@ -36,11 +36,11 @@ export const dj: Record<number, VoicedLenses> = {
     neutral:
       "You're on the frequency of structure and stability. The Four is the first square — the shape that closes around space and makes order out of the open air, four beats to the bar. In the old liner notes it's the Emperor on his throne: law, boundary, the steady click of the metronome. Discipline, method, and the willingness to do the unglamorous studio work that makes every other song possible.",
     shadow:
-      "And here's the sad one, played because the night deserves the truth. Rigidity worn like discipline; control mistaken for care. The shadow of 4 is the builder who turns the studio into a lockup — the organiser so married to the setlist that when the ground shifts, they can't change the record. Stubbornness, a narrowing of the dial, and the quiet tyranny of always, always knowing the one \"right\" way to play it.",
+      'And here\'s the sad one, played because the night deserves the truth. Rigidity worn like discipline; control mistaken for care. The shadow of 4 is the builder who turns the studio into a lockup — the organiser so married to the setlist that when the ground shifts, they can\'t change the record. Stubbornness, a narrowing of the dial, and the quiet tyranny of always, always knowing the one "right" way to play it.',
   },
   5: {
     positive:
-      "Going out to the adventurer, the catalyst, the one already halfway out the door. You carry change energy — that restless curiosity that hears \"this is how things are\" and immediately spins something else. Freedom isn't a luxury track for you; it's the air you breathe between songs. In this tradition — so the old songbook says, anyway — the 5 sits dead centre of the single digits, the pivot in the middle of the record where everything can shift.",
+      'Going out to the adventurer, the catalyst, the one already halfway out the door. You carry change energy — that restless curiosity that hears "this is how things are" and immediately spins something else. Freedom isn\'t a luxury track for you; it\'s the air you breathe between songs. In this tradition — so the old songbook says, anyway — the 5 sits dead centre of the single digits, the pivot in the middle of the record where everything can shift.',
     neutral:
       "You're tuned to the number of freedom and change. The Five is the midpoint, the fulcrum, the key change that shakes the steady four-on-the-floor of the 4. In the old liner notes it's the Hierophant — but not the rule-keeper; the one who learned the songbook cold precisely so they'd know which rules to break. Experience, the senses turned all the way up, and the kind of knowing you only get from playing the gig yourself.",
     shadow:
@@ -48,7 +48,7 @@ export const dj: Record<number, VoicedLenses> = {
   },
   6: {
     positive:
-      "This dedication goes out to the nurturer, the harmoniser. You carry responsibility energy — the instinct to look after your people and to make the room beautiful while you do it. Love, on your station, is a verb; it does things. In this tradition — so the old songbook says, anyway — the 6 is the hexagon of the honeycomb: the shape nature reaches for when efficiency and beauty have to share the same groove.",
+      'This dedication goes out to the nurturer, the harmoniser. You carry responsibility energy — the instinct to look after your people and to make the room beautiful while you do it. Love, on your station, is a verb; it does things. In this tradition — so the old songbook says, anyway — the 6 is the hexagon of the honeycomb: the shape nature reaches for when efficiency and beauty have to share the same groove.',
     neutral:
       "You're listening to the number of harmony and duty. The Six is mathematics' first \"perfect number\" — one plus two plus three, complete and self-contained, a chord that needs nothing added. In the old liner notes it's the Lovers — and not just the romance; the principle of choice, of values, of what you're willing to sign your name to and be responsible for. Home, service, and the aesthetics of care. Smooth frequency, that one.",
     shadow:
@@ -64,7 +64,7 @@ export const dj: Record<number, VoicedLenses> = {
   },
   8: {
     positive:
-      "Going out to the achiever, the authority — the one running the whole station. You carry mastery energy: the understanding that power is an instrument and abundance is a skill you practise. You hear the arrangement where others hear noise, and you build structures that stay on the charts. In this tradition — so the old songbook says, anyway — the 8 is the infinity symbol stood upright: giving and receiving, one continuous groove.",
+      'Going out to the achiever, the authority — the one running the whole station. You carry mastery energy: the understanding that power is an instrument and abundance is a skill you practise. You hear the arrangement where others hear noise, and you build structures that stay on the charts. In this tradition — so the old songbook says, anyway — the 8 is the infinity symbol stood upright: giving and receiving, one continuous groove.',
     neutral:
       "You're tuned to the number of power and material mastery. The Eight is the first cube — two, times two, times two — three-dimensional, solid, taking up real space in the real world, like a speaker stack you can lean on. In the old liner notes it's Strength, but not the brute kind; the strength of discipline laid down take after take, year after year. Ambition, authority, and the long arithmetic between effort and reward.",
     shadow:
@@ -76,7 +76,7 @@ export const dj: Record<number, VoicedLenses> = {
     neutral:
       "You're listening to the number of completion and universal awareness. The Nine is the last single digit — the closing track before the needle lifts and the whole cycle returns to 1. In the old liner notes it's the Hermit: up at the summit with a lantern, looking back over the entire tour. Wisdom earned the long way, selflessness, and the late-night understanding that nothing on this earth truly belongs to us.",
     shadow:
-      "Now the sad song, because I promised you the whole record. Detachment mistaken for transcendence; self-neglect mistaken for selflessness. The shadow of 9 is the humanitarian who loves everyone in general and no one in particular — the sage so lost in the big picture that they lose the listeners standing right there in the front row. Aloofness, ungroundedness, and the martyr act of the \"evolved\" soul.",
+      'Now the sad song, because I promised you the whole record. Detachment mistaken for transcendence; self-neglect mistaken for selflessness. The shadow of 9 is the humanitarian who loves everyone in general and no one in particular — the sage so lost in the big picture that they lose the listeners standing right there in the front row. Aloofness, ungroundedness, and the martyr act of the "evolved" soul.',
   },
   11: {
     positive:

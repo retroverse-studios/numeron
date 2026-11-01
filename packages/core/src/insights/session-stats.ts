@@ -64,8 +64,9 @@ export function generateSessionStats(
   const profileNumbers = [
     pyth.lifePath.value,
     pyth.expression.value,
-    pyth.soulUrge.value,
-    pyth.personality.value,
+    // Pythagorean defines these, but the fields are optional across systems
+    pyth.soulUrge?.value ?? 0,
+    pyth.personality?.value ?? 0,
     pyth.maturity.value,
     pyth.birthdayNumber.value,
   ].filter((n) => n > 0);

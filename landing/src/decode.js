@@ -68,7 +68,7 @@ if (screen) {
 
 async function runLoop() {
   let i = 0;
-  // eslint-disable-next-line no-constant-condition
+
   while (true) {
     await typeFrame(FRAMES[i % FRAMES.length]);
     await sleep(3800);

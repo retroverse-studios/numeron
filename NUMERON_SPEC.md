@@ -1,4 +1,11 @@
 # NUMERON — Product Specification
+
+> **Superseded in part (2026-11):** the desktop app shipped as **Tauri**
+> (`apps/tauri`), not Electron — the Electron wrapper was removed in the
+> 2026-11 audit. Read "Electron", `electron-builder`, `electron-updater`,
+> and `electron-store` below as "Tauri, tauri-action, Tauri updater, and
+> web-storage persistence" respectively. Everything else stands.
+
 **Version 1.2 | Retroverse Studios**
 *"The Ancient Science of Numbers, Decoded."*
 

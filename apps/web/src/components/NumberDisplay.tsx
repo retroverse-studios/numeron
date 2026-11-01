@@ -24,19 +24,22 @@ export function NumberDisplay({
   const interp = voicedInterpretation(result.value, narrator);
 
   const handleCopy = () => {
-    const lines = [
-      `NUMERON // ${label} ${result.value} (${result.system})`,
-    ];
+    const lines = [`NUMERON // ${label} ${result.value} (${result.system})`];
     if (interp) {
       lines.push(`LIGHT: ${interp.positive.slice(0, 100)}...`);
       lines.push(`SHADOW: ${interp.shadow.slice(0, 100)}...`);
     }
     lines.push('numeron.retroverse.studio');
 
-    navigator.clipboard.writeText(lines.join('\n')).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
+    navigator.clipboard
+      ?.writeText(lines.join('\n'))
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      })
+      .catch(() => {
+        /* clipboard unavailable (insecure context) */
+      });
   };
 
   return (
@@ -80,7 +83,9 @@ export function NumberDisplay({
 
       {showSteps && <ReductionTrace steps={result.reductionSteps} />}
 
-      {showInterpretation && interp && <ThreeLensToggle interpretation={interp} numberValue={result.value} />}
+      {showInterpretation && interp && (
+        <ThreeLensToggle interpretation={interp} numberValue={result.value} />
+      )}
 
       {disclaimer && (
         <p className="text-xs italic text-[var(--text-secondary)] mt-2">{disclaimer}</p>

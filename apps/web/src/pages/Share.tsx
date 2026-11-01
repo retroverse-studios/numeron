@@ -22,9 +22,7 @@ export function Share() {
   if (!encoded || !profileInput) {
     return (
       <div className="max-w-2xl mx-auto text-center py-16 space-y-4">
-        <p className="font-terminal text-sm text-[var(--accent)]">
-          {'> '}INVALID SHARE LINK
-        </p>
+        <p className="font-terminal text-sm text-[var(--accent)]">{'> '}INVALID SHARE LINK</p>
         <p className="font-body text-xs text-[var(--text-secondary)]">
           The encoded profile data could not be parsed. It may be corrupted or incomplete.
         </p>

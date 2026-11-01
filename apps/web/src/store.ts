@@ -36,10 +36,38 @@ interface NumeronState {
   clearProfile: () => void;
 }
 
+const THEMES: Theme[] = ['phosphor', 'arcane', 'high-contrast'];
+
+function storedTheme(): Theme {
+  const s = localStorage.getItem('numeron-theme') as Theme | null;
+  return s && THEMES.includes(s) ? s : 'phosphor';
+}
+
+function storedBool(key: string, fallback: boolean): boolean {
+  const s = localStorage.getItem(key);
+  return s === null ? fallback : s === 'true';
+}
+
+function applyPrefs(reduceMotion: boolean, readableFont: boolean) {
+  document.documentElement.classList.toggle('reduce-motion', reduceMotion);
+  document.documentElement.classList.toggle('font-readable', readableFont);
+}
+
+const initialTheme = storedTheme();
+const initialReduceMotion = storedBool(
+  'numeron-reduce-motion',
+  typeof window !== 'undefined' &&
+    (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false),
+);
+const initialReadableFont = storedBool('numeron-readable-font', false);
+document.documentElement.setAttribute('data-theme', initialTheme);
+applyPrefs(initialReduceMotion, initialReadableFont);
+
 export const useStore = create<NumeronState>((set) => ({
-  theme: 'phosphor',
+  theme: initialTheme,
   setTheme: (theme) => {
     document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('numeron-theme', theme);
     set({ theme });
   },
 
@@ -52,23 +80,17 @@ export const useStore = create<NumeronState>((set) => ({
     set({ narrator });
   },
 
-  reduceMotion: false,
+  reduceMotion: initialReduceMotion,
   setReduceMotion: (v) => {
-    if (v) {
-      document.documentElement.classList.add('reduce-motion');
-    } else {
-      document.documentElement.classList.remove('reduce-motion');
-    }
+    document.documentElement.classList.toggle('reduce-motion', v);
+    localStorage.setItem('numeron-reduce-motion', String(v));
     set({ reduceMotion: v });
   },
 
-  readableFont: false,
+  readableFont: initialReadableFont,
   setReadableFont: (v) => {
-    if (v) {
-      document.documentElement.classList.add('font-readable');
-    } else {
-      document.documentElement.classList.remove('font-readable');
-    }
+    document.documentElement.classList.toggle('font-readable', v);
+    localStorage.setItem('numeron-readable-font', String(v));
     set({ readableFont: v });
   },
 

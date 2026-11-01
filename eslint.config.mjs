@@ -1,4 +1,5 @@
 import eslint from '@eslint/js';
+import globals from 'globals';
 import tseslint from 'typescript-eslint';
 import eslintPluginPrettier from 'eslint-plugin-prettier/recommended';
 
@@ -7,7 +8,22 @@ export default tseslint.config(
   ...tseslint.configs.recommended,
   eslintPluginPrettier,
   {
-    ignores: ['**/dist/**', '**/build/**', '**/out/**', '**/coverage/**', '**/node_modules/**'],
+    ignores: [
+      '**/dist/**',
+      '**/build/**',
+      '**/out/**',
+      '**/coverage/**',
+      '**/node_modules/**',
+      // exFAT AppleDouble sidecars are binary junk, not source
+      '**/._*',
+    ],
+  },
+  {
+    // The landing page is plain browser JS
+    files: ['landing/**/*.js'],
+    languageOptions: {
+      globals: globals.browser,
+    },
   },
   {
     rules: {

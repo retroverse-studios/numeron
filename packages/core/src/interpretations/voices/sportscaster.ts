@@ -16,11 +16,11 @@ export const sportscaster: Record<number, VoicedLenses> = {
   },
   2: {
     positive:
-      "Here comes Number Two, and what a playmaker! You carry the energy of connection — sensing what every teammate needs before they know it themselves, building bridges between opposing ends of the pitch. Intuition is your compass, folks, and it is dialled in. And in this tradition — check the record books — the 2 is the mirror that shows the 1 what it can never see alone. Beautiful link-up play!",
+      'Here comes Number Two, and what a playmaker! You carry the energy of connection — sensing what every teammate needs before they know it themselves, building bridges between opposing ends of the pitch. Intuition is your compass, folks, and it is dialled in. And in this tradition — check the record books — the 2 is the mirror that shows the 1 what it can never see alone. Beautiful link-up play!',
     neutral:
       "Down to the studio for the tactical analysis. The Two is duality and relationship — the first awareness of an Other, the moment consciousness splits into observer and observed. Archetypally it's the High Priestess seated between the pillars — the goalposts, if you like — holding knowledge that only stillness can receive. Receptivity, patience, and the wisdom of waiting for the ball to arrive. That's the game plan on the board.",
     shadow:
-      "And oh no — roll the replay. Dependence dressed in the kit of devotion, indecision dressed as diplomacy. The shadow of the 2 is the peacekeeper who disappears into the team and loses themselves entirely — the partner who cannot stand alone at the spot, the intuitive second-guessing every instinct. From the other angle you can see it clearly: over-sensitivity freezing into paralysis, and the urge to please everyone becoming the inability to make the choice at all. Painful viewing, folks.",
+      'And oh no — roll the replay. Dependence dressed in the kit of devotion, indecision dressed as diplomacy. The shadow of the 2 is the peacekeeper who disappears into the team and loses themselves entirely — the partner who cannot stand alone at the spot, the intuitive second-guessing every instinct. From the other angle you can see it clearly: over-sensitivity freezing into paralysis, and the urge to please everyone becoming the inability to make the choice at all. Painful viewing, folks.',
   },
   3: {
     positive:
@@ -56,7 +56,7 @@ export const sportscaster: Record<number, VoicedLenses> = {
   },
   7: {
     positive:
-      "Number Seven, the deep-lying thinker of this team! You carry the energy of inquiry — the drive to look beneath the surface of the pitch and find what is actually true down there. The inner game is rich, and solitude — the empty training ground at dawn — is where your best thinking happens. In this tradition, the record books say, the 7 is the mind turned inward: the question that matters more than the final score.",
+      'Number Seven, the deep-lying thinker of this team! You carry the energy of inquiry — the drive to look beneath the surface of the pitch and find what is actually true down there. The inner game is rich, and solitude — the empty training ground at dawn — is where your best thinking happens. In this tradition, the record books say, the 7 is the mind turned inward: the question that matters more than the final score.',
     neutral:
       "Let's break it down at the desk. The Seven is contemplation and mystery — a number of completion and depth across every league in history: seven days, seven notes, seven chakras, the seven visible planets on the ancient world's fixture list. Archetypally it's the Chariot — but make no mistake, folks, this journey is played entirely on the inside. Wisdom, analysis, and the examined life. That's the scouting report.",
     shadow:
@@ -92,7 +92,7 @@ export const sportscaster: Record<number, VoicedLenses> = {
     neutral:
       "To the tactics board for this one. Twenty-two is the second master number — 2 plus 2 gives you 4, the builder, but operating a whole octave up, a division higher. Archetypally it's the Fool at the end of the journey: the veteran who has seen every fixture there is and chooses to lace up and begin again — this time building for others. Large-scale achievement, practical idealism, and the sheer weight of potential sitting on those shoulders.",
     shadow:
-      "And the replay is painful, folks. Overwhelm wearing the badge of ambition; paralysis dressed as perfectionism. The shadow of the 22 is the visionary crushed by the scale of their own stadium plans — the master builder who never breaks ground because the blueprints are never quite perfect enough. Look at it from the tunnel angle: the pressure of that potential is real, and so is the temptation to collapse back into a 4 and build small, safe five-a-side pitches instead.",
+      'And the replay is painful, folks. Overwhelm wearing the badge of ambition; paralysis dressed as perfectionism. The shadow of the 22 is the visionary crushed by the scale of their own stadium plans — the master builder who never breaks ground because the blueprints are never quite perfect enough. Look at it from the tunnel angle: the pressure of that potential is real, and so is the temptation to collapse back into a 4 and build small, safe five-a-side pitches instead.',
   },
   33: {
     positive:

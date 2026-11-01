@@ -51,10 +51,7 @@ export function SessionStatsDisplay({ stats }: SessionStatsProps) {
               DOMINANT ENERGY:{' '}
             </span>
             {stats.dominantProfileNumbers.map((n) => (
-              <span
-                key={n}
-                className="font-terminal text-xl text-[var(--accent)] text-glow mx-1"
-              >
+              <span key={n} className="font-terminal text-xl text-[var(--accent)] text-glow mx-1">
                 {n}
               </span>
             ))}

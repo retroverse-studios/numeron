@@ -1,10 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { companyProfiles, analyzeCompany, companiesBySector } from '../explorers/companies.js';
-import {
-  countryProfiles,
-  analyzeCountry,
-  countriesByContinent,
-} from '../explorers/countries.js';
+import { countryProfiles, analyzeCountry, countriesByContinent } from '../explorers/countries.js';
 
 describe('company profiles', () => {
   it('has at least 25 pre-loaded companies', () => {

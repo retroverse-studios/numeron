@@ -58,13 +58,7 @@ function NumberRow({
 
 export function NumeronReport({ input, profiles, generatedDate }: ReportProps) {
   const profile = profiles.pythagorean;
-  const systems: NumerologySystem[] = [
-    'pythagorean',
-    'chaldean',
-    'kabbalistic',
-    'loshu',
-    'abjad',
-  ];
+  const systems: NumerologySystem[] = ['pythagorean', 'chaldean', 'kabbalistic', 'loshu', 'abjad'];
   const systemLabels: Record<NumerologySystem, string> = {
     pythagorean: 'Pyth.',
     chaldean: 'Chald.',
@@ -98,8 +92,8 @@ export function NumeronReport({ input, profiles, generatedDate }: ReportProps) {
         <Text style={styles.sectionTitle}>CORE NUMBERS (Pythagorean)</Text>
         <NumberRow label="Life Path" result={profile.lifePath} />
         <NumberRow label="Expression" result={profile.expression} />
-        <NumberRow label="Soul Urge" result={profile.soulUrge} />
-        <NumberRow label="Personality" result={profile.personality} />
+        {profile.soulUrge && <NumberRow label="Soul Urge" result={profile.soulUrge} />}
+        {profile.personality && <NumberRow label="Personality" result={profile.personality} />}
         <FooterDisclaimer />
       </Page>
 

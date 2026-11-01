@@ -10,12 +10,16 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@fontsource/atkinson-hyperlegible": "^5.2.8",
+    "@fontsource/cinzel": "^5.2.8",
+    "@fontsource/courier-prime": "^5.2.8",
+    "@fontsource/share-tech-mono": "^5.2.7",
     "@numeron/core": "workspace:*",
     "@numeron/pdf": "workspace:*",
     "@react-pdf/renderer": "^4.3.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
-    "react-router-dom": "^6.28.0",
+    "react-router-dom": "^7.18.5",
     "zustand": "^5.0.0"
   },
   "devDependencies": {

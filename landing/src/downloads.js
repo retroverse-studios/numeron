@@ -109,13 +109,20 @@ async function populateDownloads() {
     if (slot) {
       heroBtn.href = assets.get(slot).url;
       heroBtn.textContent = `[ ⬇ DOWNLOAD FOR ${PLATFORM_LABEL[platform]} ]`;
-      heroNote.innerHTML =
-        `${version} · direct download · <a href="#download">other platforms ↓</a>`;
+      setHeroNote(heroNote, `${version} · direct download · `, 'other platforms ↓');
       return;
     }
   }
   // Unknown platform (or no matching asset): keep the button as an anchor to #download.
-  heroNote.innerHTML = `${version} · <a href="#download">choose your platform ↓</a>`;
+  setHeroNote(heroNote, `${version} · `, 'choose your platform ↓');
+}
+
+// Build the note with DOM APIs so release metadata is never parsed as HTML
+function setHeroNote(el, prefix, linkText) {
+  const a = document.createElement('a');
+  a.href = '#download';
+  a.textContent = linkText;
+  el.replaceChildren(document.createTextNode(prefix), a);
 }
 
 populateDownloads();

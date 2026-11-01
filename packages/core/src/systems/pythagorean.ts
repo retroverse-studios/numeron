@@ -1,5 +1,6 @@
 import type { NumberResult } from '../types.js';
 import { reduceNumber } from '../utils/reduce.js';
+import { toLatinUpper } from '../utils/text.js';
 
 const SYSTEM = 'pythagorean' as const;
 
@@ -50,7 +51,7 @@ export function letterValue(char: string): number {
  * Includes step-by-step trace showing letter → value mapping.
  */
 export function reduceName(name: string): NumberResult {
-  const upper = name.toUpperCase();
+  const upper = toLatinUpper(name);
   const letters: { char: string; value: number }[] = [];
 
   for (const char of upper) {
@@ -93,7 +94,7 @@ export function expression(fullBirthName: string): NumberResult {
  * Calculate Soul Urge number (vowels only in full name).
  */
 export function soulUrge(fullBirthName: string): NumberResult {
-  const upper = fullBirthName.toUpperCase();
+  const upper = toLatinUpper(fullBirthName);
   const letters: { char: string; value: number }[] = [];
 
   for (const char of upper) {
@@ -120,7 +121,7 @@ export function soulUrge(fullBirthName: string): NumberResult {
  * Calculate Personality number (consonants only in full name).
  */
 export function personality(fullBirthName: string): NumberResult {
-  const upper = fullBirthName.toUpperCase();
+  const upper = toLatinUpper(fullBirthName);
   const letters: { char: string; value: number }[] = [];
 
   for (const char of upper) {
@@ -244,7 +245,7 @@ export function houseNumber(address: string): NumberResult | null {
  */
 export function hiddenPassion(fullBirthName: string): NumberResult[] {
   const freq: Record<number, number> = {};
-  const upper = fullBirthName.toUpperCase();
+  const upper = toLatinUpper(fullBirthName);
 
   for (const char of upper) {
     const val = LETTER_VALUES[char];
@@ -271,7 +272,8 @@ export function detectKarmaDebt(results: NumberResult[]): number[] {
   for (const result of results) {
     for (const step of result.reductionSteps) {
       for (const kn of karmaNumbers) {
-        if (step.includes(`= ${kn}`) || step === String(kn)) {
+        // Anchor the match: a plain includes('= 13') also fires on '= 131'
+        if (new RegExp(`= ${kn}(?!\\d)`).test(step) || step === String(kn)) {
           found.add(kn);
         }
       }

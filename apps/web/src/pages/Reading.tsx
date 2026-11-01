@@ -11,7 +11,15 @@ const inputClass = `w-full bg-transparent border border-[var(--border)] text-[va
 
 export function Reading() {
   const { profiles, profileInput, activeSystem } = useStore();
-  const [apiKey, setApiKey] = useState(() => localStorage.getItem('numeron.aiKey') ?? '');
+  const [rememberKey, setRememberKey] = useState(
+    () => localStorage.getItem('numeron.aiKey') !== null,
+  );
+  const [apiKey, setApiKey] = useState(
+    () =>
+      localStorage.getItem('numeron.aiKey') ??
+      sessionStorage.getItem('numeron.aiKey.session') ??
+      '',
+  );
   const [model, setModel] = useState(DEFAULT_AI_MODEL);
   const [voice, setVoice] = useState('');
   const [customVoice, setCustomVoice] = useState('');
@@ -56,20 +64,20 @@ export function Reading() {
 
   return (
     <div className="max-w-2xl mx-auto space-y-8">
-      <h1 className="font-terminal text-2xl text-[var(--accent)] text-glow">
-        {'> '}AI READING
-      </h1>
+      <h1 className="font-terminal text-2xl text-[var(--accent)] text-glow">{'> '}AI READING</h1>
 
       <TerminalCard title="NETWORK NOTICE">
         <p className="font-body text-sm text-[var(--text-secondary)] leading-relaxed">
-          This mode sends your profile numbers directly to Anthropic using your own
-          API key — the <span className="text-[var(--accent)]">only</span> NUMERON
-          feature that touches the network. The key is kept in this browser's local
-          storage and goes nowhere else.
+          This mode sends your profile numbers directly to Anthropic using your own API key — the{' '}
+          <span className="text-[var(--accent)]">only</span> NUMERON feature that touches the
+          network. The key is kept for this browser session only unless you tick "remember on this
+          device", and goes nowhere else.
         </p>
       </TerminalCard>
 
-      <TerminalCard title={`READING FOR ${profileInput.fullBirthName.toUpperCase()} // ${activeSystem.toUpperCase()}`}>
+      <TerminalCard
+        title={`READING FOR ${profileInput.fullBirthName.toUpperCase()} // ${activeSystem.toUpperCase()}`}
+      >
         <div className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <input
@@ -77,8 +85,12 @@ export function Reading() {
               placeholder="sk-ant-… (your Anthropic API key)"
               value={apiKey}
               onChange={(e) => {
-                setApiKey(e.target.value);
-                localStorage.setItem('numeron.aiKey', e.target.value);
+                const v = e.target.value;
+                setApiKey(v);
+                sessionStorage.setItem('numeron.aiKey.session', v);
+                if (rememberKey) {
+                  localStorage.setItem('numeron.aiKey', v);
+                }
               }}
               className={inputClass}
             />
@@ -90,15 +102,45 @@ export function Reading() {
             />
           </div>
 
+          <div className="flex items-center justify-between gap-3">
+            <label className="flex items-center gap-2 font-terminal text-xs text-[var(--text-secondary)] min-h-[44px]">
+              <input
+                type="checkbox"
+                checked={rememberKey}
+                onChange={(e) => {
+                  const on = e.target.checked;
+                  setRememberKey(on);
+                  if (on && apiKey) {
+                    localStorage.setItem('numeron.aiKey', apiKey);
+                  } else {
+                    localStorage.removeItem('numeron.aiKey');
+                  }
+                }}
+                className="accent-[var(--accent)]"
+              />
+              Remember key on this device
+            </label>
+            {apiKey && (
+              <button
+                type="button"
+                onClick={() => {
+                  setApiKey('');
+                  setRememberKey(false);
+                  sessionStorage.removeItem('numeron.aiKey.session');
+                  localStorage.removeItem('numeron.aiKey');
+                }}
+                className="font-terminal text-xs text-[var(--text-secondary)] hover:text-[var(--accent)] min-h-[44px] px-2 transition-colors"
+              >
+                [ FORGET KEY ]
+              </button>
+            )}
+          </div>
+
           <div className="space-y-2">
             <label className="block font-terminal text-xs tracking-widest text-[var(--text-secondary)]">
               VOICE
             </label>
-            <select
-              value={voice}
-              onChange={(e) => setVoice(e.target.value)}
-              className={inputClass}
-            >
+            <select value={voice} onChange={(e) => setVoice(e.target.value)} className={inputClass}>
               <option value="">house style (default)</option>
               {Object.entries(VOICES).map(([id, v]) => (
                 <option key={id} value={id}>
@@ -137,7 +179,8 @@ export function Reading() {
 
           {error && (
             <p className="font-terminal text-xs text-[var(--accent)]" role="alert">
-              {'> '}{error}
+              {'> '}
+              {error}
             </p>
           )}
         </div>

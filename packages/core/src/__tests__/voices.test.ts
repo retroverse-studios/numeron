@@ -12,10 +12,7 @@ describe('narrator voice packs', () => {
         const voiced = narrator.texts[n];
         expect(voiced, `${id} is missing number ${n}`).toBeDefined();
         for (const lens of LENSES) {
-          expect(
-            voiced![lens].trim().length,
-            `${id} ${n}.${lens} is empty`,
-          ).toBeGreaterThan(40);
+          expect(voiced![lens].trim().length, `${id} ${n}.${lens} is empty`).toBeGreaterThan(40);
         }
       }
     }

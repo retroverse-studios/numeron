@@ -20,7 +20,6 @@ import {
   analyzeCountry,
 } from '@numeron/core';
 
-
 type Tab = 'constants' | 'magic' | 'fibonacci' | 'sudoku' | 'sacred' | 'companies' | 'countries';
 
 export function Explore() {
@@ -77,10 +76,18 @@ export function Explore() {
             <table className="w-full font-body text-sm">
               <thead>
                 <tr className="border-b border-[var(--border)]">
-                  <th className="text-left py-2 pr-2 font-terminal text-xs text-[var(--text-secondary)]">Constant</th>
-                  <th className="text-center py-2 px-2 font-terminal text-xs text-[var(--text-secondary)]">Symbol</th>
-                  <th className="text-center py-2 px-2 font-terminal text-xs text-[var(--text-secondary)]">Reduces To</th>
-                  <th className="text-center py-2 px-2 font-terminal text-xs text-[var(--text-secondary)]">Master?</th>
+                  <th className="text-left py-2 pr-2 font-terminal text-xs text-[var(--text-secondary)]">
+                    Constant
+                  </th>
+                  <th className="text-center py-2 px-2 font-terminal text-xs text-[var(--text-secondary)]">
+                    Symbol
+                  </th>
+                  <th className="text-center py-2 px-2 font-terminal text-xs text-[var(--text-secondary)]">
+                    Reduces To
+                  </th>
+                  <th className="text-center py-2 px-2 font-terminal text-xs text-[var(--text-secondary)]">
+                    Master?
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -88,7 +95,9 @@ export function Explore() {
                   <tr key={c.name} className="border-b border-[var(--border)] border-opacity-30">
                     <td className="py-2 pr-2 text-[var(--text-secondary)]">{c.name}</td>
                     <td className="py-2 px-2 text-center font-terminal">{c.symbol}</td>
-                    <td className={`py-2 px-2 text-center font-terminal text-lg ${c.result.masterNumber ? 'text-[var(--accent-green)]' : 'text-[var(--accent)]'}`}>
+                    <td
+                      className={`py-2 px-2 text-center font-terminal text-lg ${c.result.masterNumber ? 'text-[var(--accent-green)]' : 'text-[var(--accent)]'}`}
+                    >
                       {c.result.value}
                     </td>
                     <td className="py-2 px-2 text-center text-xs">
@@ -111,14 +120,17 @@ export function Explore() {
                   font-body px-3 py-2 min-h-[44px]
                   focus:border-[var(--accent)] focus:outline-none"
               />
-              {userConstant && (() => {
-                const r = reduceUserConstant(userConstant);
-                return r ? (
-                  <span className={`font-terminal text-2xl self-center px-3 ${r.masterNumber ? 'text-[var(--accent-green)]' : 'text-[var(--accent)]'}`}>
-                    → {r.value}
-                  </span>
-                ) : null;
-              })()}
+              {userConstant &&
+                (() => {
+                  const r = reduceUserConstant(userConstant);
+                  return r ? (
+                    <span
+                      className={`font-terminal text-2xl self-center px-3 ${r.masterNumber ? 'text-[var(--accent-green)]' : 'text-[var(--accent)]'}`}
+                    >
+                      → {r.value}
+                    </span>
+                  ) : null;
+                })()}
             </div>
           </TerminalCard>
         </div>
@@ -132,7 +144,10 @@ export function Explore() {
             return (
               <TerminalCard key={sq.name} title={sq.name}>
                 <div className="space-y-3">
-                  <div className="font-terminal grid gap-1" style={{ gridTemplateColumns: `repeat(${analysis.order}, minmax(40px, 60px))` }}>
+                  <div
+                    className="font-terminal grid gap-1"
+                    style={{ gridTemplateColumns: `repeat(${analysis.order}, minmax(40px, 60px))` }}
+                  >
                     {analysis.grid.flat().map((cell, i) => (
                       <div
                         key={i}
@@ -143,7 +158,12 @@ export function Explore() {
                     ))}
                   </div>
                   <div className="text-xs text-[var(--text-secondary)] space-y-1">
-                    <p>Magic constant: {analysis.magicConstant} → <span className="text-[var(--accent)]">{analysis.magicConstantReduction.value}</span></p>
+                    <p>
+                      Magic constant: {analysis.magicConstant} →{' '}
+                      <span className="text-[var(--accent)]">
+                        {analysis.magicConstantReduction.value}
+                      </span>
+                    </p>
                     {analysis.centerValue && <p>Centre: {analysis.centerValue}</p>}
                     <p>Valid: {analysis.isValid ? 'Yes' : 'No'}</p>
                     {sq.tradition && <p>Origin: {sq.tradition}</p>}
@@ -165,9 +185,11 @@ export function Explore() {
                   key={i}
                   className={`
                     font-terminal text-sm w-8 h-8 flex items-center justify-center border
-                    ${v === 9
-                      ? 'border-[var(--accent)] text-[var(--accent)] text-glow bg-[var(--accent)] bg-opacity-10'
-                      : 'border-[var(--border)] text-[var(--text-secondary)]'}
+                    ${
+                      v === 9
+                        ? 'border-[var(--accent)] text-[var(--accent)] text-glow bg-[var(--accent)] bg-opacity-10'
+                        : 'border-[var(--border)] text-[var(--text-secondary)]'
+                    }
                   `}
                 >
                   {v}
@@ -181,7 +203,9 @@ export function Explore() {
                   <>
                     <p>Period: {props.period}</p>
                     <p>9 appears at positions: {props.ninePositions.join(', ')}</p>
-                    <p>Cycle sum: {props.cycleSum} → {props.cycleSumReduced}</p>
+                    <p>
+                      Cycle sum: {props.cycleSum} → {props.cycleSumReduced}
+                    </p>
                   </>
                 );
               })()}
@@ -196,16 +220,29 @@ export function Explore() {
           <TerminalCard title="THE PURE-9 PROPERTIES OF SUDOKU">
             <div className="font-body text-sm text-[var(--text-secondary)] space-y-2 mb-4">
               <p>
-                A completed sudoku is numerologically the most perfect structure humans have invented.
-                Every property reduces to 9.
+                A completed sudoku is numerologically the most perfect structure humans have
+                invented. Every property reduces to 9.
               </p>
               <div className="grid grid-cols-2 gap-2 font-terminal text-xs">
-                <span>Total cells: 81 → <span className="text-[var(--accent)]">9</span></span>
-                <span>Each digit appears: 9× → <span className="text-[var(--accent)]">9</span></span>
-                <span>Row/col/box sum: 45 → <span className="text-[var(--accent)]">9</span></span>
-                <span>Total sum: 405 → <span className="text-[var(--accent)]">9</span></span>
-                <span>Valid grids: 6.67×10²¹ → <span className="text-[var(--accent)]">9</span></span>
-                <span>Min givens for unique: 17 → <span className="text-[var(--text-secondary)]">8</span> (not 9!)</span>
+                <span>
+                  Total cells: 81 → <span className="text-[var(--accent)]">9</span>
+                </span>
+                <span>
+                  Each digit appears: 9× → <span className="text-[var(--accent)]">9</span>
+                </span>
+                <span>
+                  Row/col/box sum: 45 → <span className="text-[var(--accent)]">9</span>
+                </span>
+                <span>
+                  Total sum: 405 → <span className="text-[var(--accent)]">9</span>
+                </span>
+                <span>
+                  Valid grids: 6.67×10²¹ → <span className="text-[var(--accent)]">9</span>
+                </span>
+                <span>
+                  Min givens for unique: 17 →{' '}
+                  <span className="text-[var(--text-secondary)]">8</span> (not 9!)
+                </span>
               </div>
             </div>
             <p className="text-xs italic text-[var(--text-secondary)]">
@@ -240,8 +277,10 @@ export function Explore() {
                         {analysis.grid.flat().map((cell, i) => {
                           const row = Math.floor(i / 9);
                           const col = i % 9;
-                          const borderR = col === 2 || col === 5 ? 'border-r border-[var(--accent)]' : '';
-                          const borderB = row === 2 || row === 5 ? 'border-b border-[var(--accent)]' : '';
+                          const borderR =
+                            col === 2 || col === 5 ? 'border-r border-[var(--accent)]' : '';
+                          const borderB =
+                            row === 2 || row === 5 ? 'border-b border-[var(--accent)]' : '';
                           return (
                             <div
                               key={i}
@@ -260,10 +299,20 @@ export function Explore() {
 
                       {/* Analysis results */}
                       <div className="grid grid-cols-2 gap-2 font-terminal text-xs text-[var(--text-secondary)]">
-                        <span>Valid: {analysis.isValid ? <span className="text-[var(--accent-green)]">YES</span> : <span className="text-[var(--accent)]">NO</span>}</span>
+                        <span>
+                          Valid:{' '}
+                          {analysis.isValid ? (
+                            <span className="text-[var(--accent-green)]">YES</span>
+                          ) : (
+                            <span className="text-[var(--accent)]">NO</span>
+                          )}
+                        </span>
                         <span>Complete: {analysis.isComplete ? 'YES' : 'NO'}</span>
                         <span>Total sum: {analysis.totalSum}</span>
-                        <span>Pure-9 score: <span className="text-[var(--accent)]">{analysis.pureNineScore}/6</span></span>
+                        <span>
+                          Pure-9 score:{' '}
+                          <span className="text-[var(--accent)]">{analysis.pureNineScore}/6</span>
+                        </span>
                       </div>
 
                       {/* Pure-9 certificate */}
@@ -273,7 +322,8 @@ export function Explore() {
                             {'> '}NUMEROLOGICAL PERFECTION CERTIFICATE
                           </p>
                           <p className="font-terminal text-xs text-[var(--text-secondary)]">
-                            All six pure-9 properties confirmed. This grid is numerologically flawless.
+                            All six pure-9 properties confirmed. This grid is numerologically
+                            flawless.
                           </p>
                           <p className="text-xs italic text-[var(--text-secondary)]">
                             {microDisclaimers.sudokuCertificate}
@@ -299,7 +349,8 @@ export function Explore() {
       {activeTab === 'companies' && (
         <div className="space-y-6">
           <p className="font-body text-sm text-[var(--text-secondary)]">
-            Numerological profiles for iconic companies. Name, ticker, brand, and founding date — all reduced.
+            Numerological profiles for iconic companies. Name, ticker, brand, and founding date —
+            all reduced.
           </p>
 
           {/* Custom company input */}
@@ -314,15 +365,18 @@ export function Explore() {
                   placeholder:text-[var(--text-secondary)] placeholder:opacity-40"
               />
             </div>
-            {companySearch.trim().length > 1 && (() => {
-              const result = analyzeCompany(companySearch);
-              return (
-                <div className="mt-3 font-terminal text-sm text-[var(--text-secondary)]">
-                  <span className="text-[var(--accent)]">{companySearch}</span> → Expression{' '}
-                  <span className="text-[var(--accent)] text-lg">{result.nameExpression.value}</span>
-                </div>
-              );
-            })()}
+            {companySearch.trim().length > 1 &&
+              (() => {
+                const result = analyzeCompany(companySearch);
+                return (
+                  <div className="mt-3 font-terminal text-sm text-[var(--text-secondary)]">
+                    <span className="text-[var(--accent)]">{companySearch}</span> → Expression{' '}
+                    <span className="text-[var(--accent)] text-lg">
+                      {result.nameExpression.value}
+                    </span>
+                  </div>
+                );
+              })()}
           </TerminalCard>
 
           {/* Pre-loaded companies by sector */}
@@ -332,31 +386,50 @@ export function Explore() {
                 <table className="w-full font-body text-sm">
                   <thead>
                     <tr className="border-b border-[var(--border)]">
-                      <th className="text-left py-1 pr-2 font-terminal text-xs text-[var(--text-secondary)]">Brand</th>
-                      <th className="text-center py-1 px-2 font-terminal text-xs text-[var(--text-secondary)]">Name</th>
-                      <th className="text-center py-1 px-2 font-terminal text-xs text-[var(--text-secondary)]">Ticker</th>
-                      <th className="text-center py-1 px-2 font-terminal text-xs text-[var(--text-secondary)]">Founded</th>
+                      <th className="text-left py-1 pr-2 font-terminal text-xs text-[var(--text-secondary)]">
+                        Brand
+                      </th>
+                      <th className="text-center py-1 px-2 font-terminal text-xs text-[var(--text-secondary)]">
+                        Name
+                      </th>
+                      <th className="text-center py-1 px-2 font-terminal text-xs text-[var(--text-secondary)]">
+                        Ticker
+                      </th>
+                      <th className="text-center py-1 px-2 font-terminal text-xs text-[var(--text-secondary)]">
+                        Founded
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
                     {companies.map((c) => (
-                      <tr key={c.name} className="border-b border-[var(--border)] border-opacity-30">
-                        <td className="py-1.5 pr-2 text-[var(--text-secondary)]">{c.brandName || c.name}</td>
+                      <tr
+                        key={c.name}
+                        className="border-b border-[var(--border)] border-opacity-30"
+                      >
+                        <td className="py-1.5 pr-2 text-[var(--text-secondary)]">
+                          {c.brandName || c.name}
+                        </td>
                         <td className="py-1.5 px-2 text-center">
-                          <span className={`font-terminal ${c.nameExpression.masterNumber ? 'text-[var(--accent-green)]' : 'text-[var(--accent)]'}`}>
+                          <span
+                            className={`font-terminal ${c.nameExpression.masterNumber ? 'text-[var(--accent-green)]' : 'text-[var(--accent)]'}`}
+                          >
                             {c.nameExpression.value}
                           </span>
                         </td>
                         <td className="py-1.5 px-2 text-center">
                           {c.tickerExpression ? (
-                            <span className="font-terminal text-[var(--accent)]">{c.tickerExpression.value}</span>
+                            <span className="font-terminal text-[var(--accent)]">
+                              {c.tickerExpression.value}
+                            </span>
                           ) : (
                             <span className="opacity-30">—</span>
                           )}
                         </td>
                         <td className="py-1.5 px-2 text-center">
                           {c.foundedLifePath ? (
-                            <span className={`font-terminal ${c.foundedLifePath.masterNumber ? 'text-[var(--accent-green)]' : 'text-[var(--accent)]'}`}>
+                            <span
+                              className={`font-terminal ${c.foundedLifePath.masterNumber ? 'text-[var(--accent-green)]' : 'text-[var(--accent)]'}`}
+                            >
                               {c.foundedLifePath.value}
                             </span>
                           ) : (
@@ -382,7 +455,8 @@ export function Explore() {
       {activeTab === 'countries' && (
         <div className="space-y-6">
           <p className="font-body text-sm text-[var(--text-secondary)]">
-            Numerological profiles for countries of the world. Country name reduced as expression number, independence date as life path.
+            Numerological profiles for countries of the world. Country name reduced as expression
+            number, independence date as life path.
           </p>
 
           {/* Custom country input */}
@@ -397,15 +471,18 @@ export function Explore() {
                   placeholder:text-[var(--text-secondary)] placeholder:opacity-40"
               />
             </div>
-            {countrySearch.trim().length > 1 && (() => {
-              const result = analyzeCountry(countrySearch);
-              return (
-                <div className="mt-3 font-terminal text-sm text-[var(--text-secondary)]">
-                  <span className="text-[var(--accent)]">{countrySearch}</span> → Expression{' '}
-                  <span className="text-[var(--accent)] text-lg">{result.nameExpression.value}</span>
-                </div>
-              );
-            })()}
+            {countrySearch.trim().length > 1 &&
+              (() => {
+                const result = analyzeCountry(countrySearch);
+                return (
+                  <div className="mt-3 font-terminal text-sm text-[var(--text-secondary)]">
+                    <span className="text-[var(--accent)]">{countrySearch}</span> → Expression{' '}
+                    <span className="text-[var(--accent)] text-lg">
+                      {result.nameExpression.value}
+                    </span>
+                  </div>
+                );
+              })()}
           </TerminalCard>
 
           {/* Pre-loaded countries by continent */}
@@ -415,24 +492,39 @@ export function Explore() {
                 <table className="w-full font-body text-sm">
                   <thead>
                     <tr className="border-b border-[var(--border)]">
-                      <th className="text-left py-1 pr-2 font-terminal text-xs text-[var(--text-secondary)]">Country</th>
-                      <th className="text-center py-1 px-2 font-terminal text-xs text-[var(--text-secondary)]">Name</th>
-                      <th className="text-center py-1 px-2 font-terminal text-xs text-[var(--text-secondary)]">Independence</th>
-                      <th className="text-left py-1 px-2 font-terminal text-xs text-[var(--text-secondary)]">Date</th>
+                      <th className="text-left py-1 pr-2 font-terminal text-xs text-[var(--text-secondary)]">
+                        Country
+                      </th>
+                      <th className="text-center py-1 px-2 font-terminal text-xs text-[var(--text-secondary)]">
+                        Name
+                      </th>
+                      <th className="text-center py-1 px-2 font-terminal text-xs text-[var(--text-secondary)]">
+                        Independence
+                      </th>
+                      <th className="text-left py-1 px-2 font-terminal text-xs text-[var(--text-secondary)]">
+                        Date
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
                     {countries.map((c) => (
-                      <tr key={c.name} className="border-b border-[var(--border)] border-opacity-30">
+                      <tr
+                        key={c.name}
+                        className="border-b border-[var(--border)] border-opacity-30"
+                      >
                         <td className="py-1.5 pr-2 text-[var(--text-secondary)]">{c.name}</td>
                         <td className="py-1.5 px-2 text-center">
-                          <span className={`font-terminal ${c.nameExpression.masterNumber ? 'text-[var(--accent-green)]' : 'text-[var(--accent)]'}`}>
+                          <span
+                            className={`font-terminal ${c.nameExpression.masterNumber ? 'text-[var(--accent-green)]' : 'text-[var(--accent)]'}`}
+                          >
                             {c.nameExpression.value}
                           </span>
                         </td>
                         <td className="py-1.5 px-2 text-center">
                           {c.foundedLifePath ? (
-                            <span className={`font-terminal ${c.foundedLifePath.masterNumber ? 'text-[var(--accent-green)]' : 'text-[var(--accent)]'}`}>
+                            <span
+                              className={`font-terminal ${c.foundedLifePath.masterNumber ? 'text-[var(--accent-green)]' : 'text-[var(--accent)]'}`}
+                            >
                               {c.foundedLifePath.value}
                             </span>
                           ) : (
@@ -451,9 +543,9 @@ export function Explore() {
           ))}
 
           <p className="text-xs italic text-[var(--text-secondary)]">
-            Independence dates are simplified — many countries have complex founding histories.
-            Some countries (UK, Japan, Ethiopia) predate the concept of "independence day."
-            This is cultural curiosity, not geopolitical commentary.
+            Independence dates are simplified — many countries have complex founding histories. Some
+            countries (UK, Japan, Ethiopia) predate the concept of "independence day." This is
+            cultural curiosity, not geopolitical commentary.
           </p>
         </div>
       )}
@@ -464,7 +556,8 @@ export function Explore() {
           {/* Kaprekar */}
           <TerminalCard title="KAPREKAR'S CONSTANT — 6174">
             <p className="font-body text-sm text-[var(--text-secondary)] mb-4">
-              Take any 4-digit number (not all same digits). Arrange digits descending and ascending, subtract. Repeat. Always reaches 6174.
+              Take any 4-digit number (not all same digits). Arrange digits descending and
+              ascending, subtract. Repeat. Always reaches 6174.
             </p>
             <div className="flex gap-2 mb-4">
               <input
@@ -477,25 +570,39 @@ export function Explore() {
                   focus:border-[var(--accent)] focus:outline-none"
               />
             </div>
-            {kaprekarInput.length === 4 && (() => {
-              const result = kaprekarProcess(Number(kaprekarInput));
-              if (!result.inputValid) return <p className="text-xs text-[var(--accent)]">{'> '}Invalid input (all digits must not be the same)</p>;
-              return (
-                <div className="space-y-1 font-terminal text-xs text-[var(--text-secondary)]">
-                  {result.steps.map((s, i) => (
-                    <div key={i}>
-                      {String(s.descending).padStart(4, '0')} - {String(s.ascending).padStart(4, '0')} ={' '}
-                      <span className={s.result === KAPREKAR_CONSTANT ? 'text-[var(--accent)] text-glow' : ''}>
-                        {s.result}
-                      </span>
-                    </div>
-                  ))}
-                  {result.reachedConstant && (
-                    <p className="text-[var(--accent)] mt-2">{'> '}Reached 6174 in {result.steps.length} step{result.steps.length !== 1 ? 's' : ''}</p>
-                  )}
-                </div>
-              );
-            })()}
+            {kaprekarInput.length === 4 &&
+              (() => {
+                const result = kaprekarProcess(Number(kaprekarInput));
+                if (!result.inputValid)
+                  return (
+                    <p className="text-xs text-[var(--accent)]">
+                      {'> '}Invalid input (all digits must not be the same)
+                    </p>
+                  );
+                return (
+                  <div className="space-y-1 font-terminal text-xs text-[var(--text-secondary)]">
+                    {result.steps.map((s, i) => (
+                      <div key={i}>
+                        {String(s.descending).padStart(4, '0')} -{' '}
+                        {String(s.ascending).padStart(4, '0')} ={' '}
+                        <span
+                          className={
+                            s.result === KAPREKAR_CONSTANT ? 'text-[var(--accent)] text-glow' : ''
+                          }
+                        >
+                          {s.result}
+                        </span>
+                      </div>
+                    ))}
+                    {result.reachedConstant && (
+                      <p className="text-[var(--accent)] mt-2">
+                        {'> '}Reached 6174 in {result.steps.length} step
+                        {result.steps.length !== 1 ? 's' : ''}
+                      </p>
+                    )}
+                  </div>
+                );
+              })()}
           </TerminalCard>
 
           {/* 142857 */}
@@ -503,7 +610,8 @@ export function Explore() {
             <div className="space-y-1 font-terminal text-sm text-[var(--text-secondary)]">
               {cyclicNumberMultiples().map((m) => (
                 <div key={m.multiplier}>
-                  142857 × {m.multiplier} = {m.product} → <span className="text-[var(--accent)]">{m.reduced}</span>
+                  142857 × {m.multiplier} = {m.product} →{' '}
+                  <span className="text-[var(--accent)]">{m.reduced}</span>
                 </div>
               ))}
             </div>
@@ -516,10 +624,17 @@ export function Explore() {
             </p>
             <div className="flex gap-4">
               <div>
-                <span className="font-terminal text-xs text-[var(--text-secondary)]">DOUBLING:</span>
+                <span className="font-terminal text-xs text-[var(--text-secondary)]">
+                  DOUBLING:
+                </span>
                 <div className="flex gap-1 mt-1">
                   {TESLA_PATTERN.doublingCycle.map((n) => (
-                    <span key={n} className="font-terminal text-lg text-[var(--text-secondary)] w-8 text-center">{n}</span>
+                    <span
+                      key={n}
+                      className="font-terminal text-lg text-[var(--text-secondary)] w-8 text-center"
+                    >
+                      {n}
+                    </span>
                   ))}
                 </div>
               </div>
@@ -527,7 +642,12 @@ export function Explore() {
                 <span className="font-terminal text-xs text-[var(--accent)]">SACRED:</span>
                 <div className="flex gap-1 mt-1">
                   {TESLA_PATTERN.sacredTriad.map((n) => (
-                    <span key={n} className="font-terminal text-lg text-[var(--accent)] text-glow w-8 text-center">{n}</span>
+                    <span
+                      key={n}
+                      className="font-terminal text-lg text-[var(--accent)] text-glow w-8 text-center"
+                    >
+                      {n}
+                    </span>
                   ))}
                 </div>
               </div>

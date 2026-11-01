@@ -16,8 +16,7 @@ const AMP = 34;
 const SAMPLES = 240;
 
 /** Deterministic jitter in [0,1) — the picture must not change between renders. */
-const jitter = (i: number, salt: number): number =>
-  (((i + 1) * 7919 + salt * 104729) % 997) / 997;
+const jitter = (i: number, salt: number): number => (((i + 1) * 7919 + salt * 104729) % 997) / 997;
 
 /** Map a life path value (1–9, 11, 22, 33) to a cycle count that fits the screen. */
 const cycles = (value: number): number => ((value - 1) % 9) + 1;
@@ -216,17 +215,17 @@ export function ResonanceScope({
 
       <div className="font-terminal text-xs text-[var(--text-secondary)] flex flex-wrap gap-x-6 gap-y-1">
         <span>
-          <span className="text-[var(--accent-green)]">◆</span> resonance — a number both
-          profiles share
+          <span className="text-[var(--accent-green)]">◆</span> resonance — a number both profiles
+          share
         </span>
         <span>
-          <span className="text-[var(--accent)]">✶</span> interference — a traditional
-          tension pairing
+          <span className="text-[var(--accent)]">✶</span> interference — a traditional tension
+          pairing
         </span>
       </div>
       <p className="text-xs italic text-[var(--text-secondary)]">
-        The scope is a mood, not a measurement. Matching frequencies lock; different ones
-        just make a more interesting waveform.
+        The scope is a mood, not a measurement. Matching frequencies lock; different ones just make
+        a more interesting waveform.
       </p>
     </div>
   );

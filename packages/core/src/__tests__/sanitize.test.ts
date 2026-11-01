@@ -1,5 +1,11 @@
 import { describe, it, expect } from 'vitest';
-import { sanitizeName, sanitizeDate, sanitizeText, parseSharePayload } from '../utils/sanitize.js';
+import {
+  sanitizeName,
+  sanitizeDate,
+  sanitizeText,
+  parseSharePayload,
+  encodeSharePayload,
+} from '../utils/sanitize.js';
 
 describe('sanitizeName', () => {
   it('passes through clean names', () => {
@@ -103,5 +109,36 @@ describe('parseSharePayload', () => {
   it('rejects payloads with invalid dates', () => {
     const input = { fullBirthName: 'John', dateOfBirth: 'not-a-date' };
     expect(parseSharePayload(btoa(JSON.stringify(input)))).toBeNull();
+  });
+});
+
+describe('share payload round-trip', () => {
+  it('round-trips names with accents, curly apostrophes, CJK, and emoji', () => {
+    const input = {
+      fullBirthName: 'José-María O’Neill 李雷 🎂',
+      dateOfBirth: '1990-05-17',
+    };
+    const parsed = parseSharePayload(encodeSharePayload(input));
+    expect(parsed?.fullBirthName).toBe(input.fullBirthName);
+    expect(parsed?.dateOfBirth).toBe('1990-05-17');
+  });
+
+  it('never produces URL-path-breaking characters', () => {
+    // Sweep enough payloads that plain base64 would certainly emit / or +
+    for (let i = 0; i < 200; i++) {
+      const encoded = encodeSharePayload({
+        fullBirthName: `Test Person ${i} ${'ÿþ?'.repeat(i % 7)}`,
+        dateOfBirth: '2001-02-03',
+      });
+      expect(encoded).not.toMatch(/[+/=]/);
+      expect(parseSharePayload(encoded)?.dateOfBirth).toBe('2001-02-03');
+    }
+  });
+
+  it('still parses legacy plain-base64 links', () => {
+    const legacy = btoa(
+      JSON.stringify({ fullBirthName: 'Ada Lovelace', dateOfBirth: '1815-12-10' }),
+    );
+    expect(parseSharePayload(legacy)?.fullBirthName).toBe('Ada Lovelace');
   });
 });

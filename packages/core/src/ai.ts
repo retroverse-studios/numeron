@@ -89,24 +89,27 @@ const SYSTEM_PROMPT = `You write numerology readings for NUMERON, software whose
 - 350–550 words of flowing prose (no headers, no bullet lists), weaving the numbers into a portrait rather than listing them.
 - End with one sentence reminding the reader that the digit sum of their name does not determine their future — they do.`;
 
-const num = (r: NumberResult) => ({
-  value: r.value,
-  master: r.masterNumber || undefined,
-  reduction: r.reductionSteps,
-  lenses: interpretations[r.value]
-    ? {
-        light: interpretations[r.value].positive,
-        truth: interpretations[r.value].neutral,
-        shadow: interpretations[r.value].shadow,
-        keywords: interpretations[r.value].keywords,
-        correspondences: {
-          planet: interpretations[r.value].planet,
-          tarot: interpretations[r.value].tarotCard,
-          element: interpretations[r.value].element,
-        },
-      }
-    : undefined,
-});
+const num = (r: NumberResult | undefined) =>
+  r === undefined
+    ? undefined
+    : {
+        value: r.value,
+        master: r.masterNumber || undefined,
+        reduction: r.reductionSteps,
+        lenses: interpretations[r.value]
+          ? {
+              light: interpretations[r.value].positive,
+              truth: interpretations[r.value].neutral,
+              shadow: interpretations[r.value].shadow,
+              keywords: interpretations[r.value].keywords,
+              correspondences: {
+                planet: interpretations[r.value].planet,
+                tarot: interpretations[r.value].tarotCard,
+                element: interpretations[r.value].element,
+              },
+            }
+          : undefined,
+      };
 
 /** Build the exact prompt NUMERON sends — exported so it can be shown to the user. */
 export function buildReadingPrompt(

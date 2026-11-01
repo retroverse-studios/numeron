@@ -49,20 +49,16 @@ export function Report() {
 
   return (
     <div className="max-w-2xl mx-auto space-y-8">
-      <h1 className="font-terminal text-2xl text-[var(--accent)] text-glow">
-        {'> '}PDF REPORT
-      </h1>
+      <h1 className="font-terminal text-2xl text-[var(--accent)] text-glow">{'> '}PDF REPORT</h1>
 
       <TerminalCard title="REPORT PREVIEW">
         <div className="space-y-4">
           <div className="font-body text-sm text-[var(--text-secondary)] space-y-2">
             <p>
-              <span className="text-[var(--accent)]">Name:</span>{' '}
-              {profileInput.fullBirthName}
+              <span className="text-[var(--accent)]">Name:</span> {profileInput.fullBirthName}
             </p>
             <p>
-              <span className="text-[var(--accent)]">DOB:</span>{' '}
-              {profileInput.dateOfBirth}
+              <span className="text-[var(--accent)]">DOB:</span> {profileInput.dateOfBirth}
             </p>
             <p>
               <span className="text-[var(--accent)]">Life Path:</span>{' '}
@@ -78,12 +74,12 @@ export function Report() {
             <p>{'  '}Personal timing (year/month/day)</p>
             <p>{'  '}Correspondences (planet, tarot, element, note, color)</p>
             <p>{'  '}Five-system comparison table</p>
-            {profiles.pythagorean.karmaDebt.length > 0 && (
-              <p>{'  '}Karma debt numbers</p>
-            )}
-            {profiles.pythagorean.masterNumbers.length > 0 && (
-              <p>{'  '}Master numbers</p>
-            )}
+            <p className="pt-2 italic">
+              The detailed readings use the Pythagorean system; the other four traditions appear in
+              the comparison table.
+            </p>
+            {profiles.pythagorean.karmaDebt.length > 0 && <p>{'  '}Karma debt numbers</p>}
+            {profiles.pythagorean.masterNumbers.length > 0 && <p>{'  '}Master numbers</p>}
             <p>{'  '}Full disclaimer page</p>
           </div>
 

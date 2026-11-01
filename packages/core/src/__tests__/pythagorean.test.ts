@@ -162,3 +162,39 @@ describe('pythagorean.detectKarmaDebt', () => {
     expect(karma).toContain(14);
   });
 });
+
+describe('diacritic folding (audit 2026-11)', () => {
+  it('scores accented letters as their base letter', () => {
+    expect(pythagorean.expression('José').value).toBe(pythagorean.expression('Jose').value);
+    expect(pythagorean.expression('Zoë').value).toBe(pythagorean.expression('Zoe').value);
+    expect(pythagorean.expression('Ñoño').value).toBe(pythagorean.expression('Nono').value);
+  });
+
+  it('counts accented vowels in Soul Urge', () => {
+    // é must count as E=5, not be skipped
+    expect(pythagorean.soulUrge('Renée').value).toBe(pythagorean.soulUrge('Renee').value);
+  });
+});
+
+describe('karma debt false positives (audit 2026-11)', () => {
+  it('does not flag 13 for a name summing to 131', () => {
+    // Find a synthetic result whose steps contain "= 131"
+    const fake = {
+      value: 5,
+      masterNumber: false,
+      system: 'pythagorean' as const,
+      reductionSteps: ['R=9, ...', '9 + 9 + ... = 131', '1 + 3 + 1 = 5'],
+    };
+    expect(pythagorean.detectKarmaDebt([fake])).toEqual([]);
+  });
+
+  it('still flags a genuine intermediate 14', () => {
+    const fake = {
+      value: 5,
+      masterNumber: false,
+      system: 'pythagorean' as const,
+      reductionSteps: ['4 + 5 + 5 = 14', '1 + 4 = 5'],
+    };
+    expect(pythagorean.detectKarmaDebt([fake])).toEqual([14]);
+  });
+});

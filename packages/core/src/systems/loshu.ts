@@ -1,5 +1,6 @@
 import type { NumberResult } from '../types.js';
 import { reduceNumber } from '../utils/reduce.js';
+import { toLatinUpper } from '../utils/text.js';
 
 const SYSTEM = 'loshu' as const;
 
@@ -82,7 +83,7 @@ export function expression(fullBirthName: string): NumberResult {
 }
 
 function reduceName(name: string): NumberResult {
-  const upper = name.toUpperCase();
+  const upper = toLatinUpper(name);
   const letters: { char: string; value: number }[] = [];
 
   for (const char of upper) {

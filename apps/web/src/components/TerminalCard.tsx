@@ -7,7 +7,12 @@ interface TerminalCardProps {
   glowOnHover?: boolean;
 }
 
-export function TerminalCard({ title, children, className = '', glowOnHover = true }: TerminalCardProps) {
+export function TerminalCard({
+  title,
+  children,
+  className = '',
+  glowOnHover = true,
+}: TerminalCardProps) {
   return (
     <div
       className={`
@@ -25,7 +30,8 @@ export function TerminalCard({ title, children, className = '', glowOnHover = tr
 
       {title && (
         <h3 className="font-terminal text-sm tracking-wider text-[var(--text-secondary)] mb-3 uppercase">
-          {'> '}{title}
+          {'> '}
+          {title}
         </h3>
       )}
       {children}

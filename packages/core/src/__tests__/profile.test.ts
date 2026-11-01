@@ -105,3 +105,19 @@ describe('generateAllSystemProfiles', () => {
     expect(expressionValues.size).toBeGreaterThanOrEqual(1);
   });
 });
+
+describe('systems without a vowel/consonant split (audit 2026-11)', () => {
+  it('leaves soulUrge/personality undefined for Lo Shu and Abjad', () => {
+    const profiles = generateAllSystemProfiles({
+      fullBirthName: 'Ada Lovelace',
+      dateOfBirth: '1815-12-10',
+    });
+    expect(profiles.loshu.soulUrge).toBeUndefined();
+    expect(profiles.loshu.personality).toBeUndefined();
+    expect(profiles.abjad.soulUrge).toBeUndefined();
+    expect(profiles.abjad.personality).toBeUndefined();
+    expect(profiles.pythagorean.soulUrge).toBeDefined();
+    expect(profiles.chaldean.soulUrge).toBeDefined();
+    expect(profiles.kabbalistic.soulUrge).toBeDefined();
+  });
+});

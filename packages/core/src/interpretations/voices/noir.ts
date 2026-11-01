@@ -35,7 +35,7 @@ export const noir: Record<number, VoicedLenses> = {
 
   4: {
     positive:
-      "Everyone on the block vouches for you. Builder. Organiser. You carry the energy of structure — the patience to pour foundations other people will stand on without ever looking down. Reliability is your gift, the dependable kind that never makes headlines but keeps the lights on. Your practical mind takes ideas and turns them into systems that actually run. In this tradition, the 4 is the four walls, the four seasons, the ground that holds.",
+      'Everyone on the block vouches for you. Builder. Organiser. You carry the energy of structure — the patience to pour foundations other people will stand on without ever looking down. Reliability is your gift, the dependable kind that never makes headlines but keeps the lights on. Your practical mind takes ideas and turns them into systems that actually run. In this tradition, the 4 is the four walls, the four seasons, the ground that holds.',
     neutral:
       "The number's record: structure, stability. The Four is the first square — the shape that fences in space and calls it order. The old cards give it the Emperor on his throne, the principle of law and boundary. It stands for discipline, method, and the unglamorous work nobody photographs but everybody depends on — the stuff that makes everything else possible. So says the archetype. I just read the files.",
     shadow:
@@ -71,7 +71,7 @@ export const noir: Record<number, VoicedLenses> = {
 
   8: {
     positive:
-      "Downtown, they say your name with respect. Achiever. Authority. You carry the energy of mastery — the understanding that power is a tool, not a trophy, and abundance is a skill you can practise. Where other people see chaos, you see the system underneath, and you build structures that outlast the weather. In this tradition, the 8 is the infinity symbol stood upright — the continuous flow between giving and receiving.",
+      'Downtown, they say your name with respect. Achiever. Authority. You carry the energy of mastery — the understanding that power is a tool, not a trophy, and abundance is a skill you can practise. Where other people see chaos, you see the system underneath, and you build structures that outlast the weather. In this tradition, the 8 is the infinity symbol stood upright — the continuous flow between giving and receiving.',
     neutral:
       "The number's own ledger: power, material mastery. The Eight is the first cube — two by two by two — solid, three-dimensional, taking up honest space in the real world. The old cards name it Strength, and not the kind that breaks doors; the strength of discipline applied over time, until the door opens on its own. It stands for ambition, authority, and the arithmetic between effort and reward. That's the archetype's statement, on the record.",
     shadow:
@@ -91,14 +91,14 @@ export const noir: Record<number, VoicedLenses> = {
     positive:
       "The witnesses lower their voices for this one. Intuitive. Illuminator. You carry the energy of heightened perception — a sensitivity to currents the rest of the room never feels moving. In the traditions that recognise master numbers — and only in those; read the fine print — the 11 is called the Master Intuitive: the channel insight walks through without knocking first. Your gift, the story goes, is seeing what hasn't turned visible to anyone else yet.",
     neutral:
-      "The paperwork on this one runs double. First master number. Eleven is 1 plus 1 — the individual doubled, self-awareness catching itself in the mirror. It carries the energy of 2, its reduction, but amplified and unstable — a tuning fork somebody struck too hard. The old cards call it Justice: not punishment, but the precise calibration of inner truth. It stands for spiritual insight, nervous energy, and the standing tension between the vision and the ground floor.",
+      'The paperwork on this one runs double. First master number. Eleven is 1 plus 1 — the individual doubled, self-awareness catching itself in the mirror. It carries the energy of 2, its reduction, but amplified and unstable — a tuning fork somebody struck too hard. The old cards call it Justice: not punishment, but the precise calibration of inner truth. It stands for spiritual insight, nervous energy, and the standing tension between the vision and the ground floor.',
     shadow:
       "The drawer hummed like a live wire. Anxiety wearing sensitivity's coat. Grandiosity claiming to be vision. The shadow of 11 is the intuitive who can't find the off switch — flooded with input, paralysed by possibility, sold on a special destiny that keeps missing its own appointment. Nervous tension. Plans that never touch the pavement. And the lonely burden of seeing things you can't explain to a soul. Not an indictment. Just the weather in there.",
   },
 
   22: {
     positive:
-      "Word around town is you build big. Master builder. You carry the energy of vision made concrete — the rare knack for dreaming at city scale and then actually pouring the foundation. Where 4 puts up a house, 22 puts up institutions, systems, legacies. In the traditions that keep books on master numbers, 22 is the most powerful number there is for turning the ideal into the real. So the ledger says.",
+      'Word around town is you build big. Master builder. You carry the energy of vision made concrete — the rare knack for dreaming at city scale and then actually pouring the foundation. Where 4 puts up a house, 22 puts up institutions, systems, legacies. In the traditions that keep books on master numbers, 22 is the most powerful number there is for turning the ideal into the real. So the ledger says.',
     neutral:
       "The dossier, straight: second master number. Twenty-two is the master builder — 2 plus 2 makes 4, the builder, but working a higher floor of the same building. The old symbolism hands it the Fool at the end of the road: the one who's seen everything and chooses to begin again anyway, this time building for other people. It stands for large-scale achievement, practical idealism, and the particular weight that potential puts on a person's shoulders.",
     shadow:
@@ -109,7 +109,7 @@ export const noir: Record<number, VoicedLenses> = {
     positive:
       "Even the cynics on the beat go quiet about you. Master teacher. You carry compassion raised to its highest register — the ability to heal, teach, and lift people just by being present in the room. In the traditions that recognise master numbers — their claim, on their letterhead — 33 is the rarest of the lot and the most spiritually charged: the teacher who teaches by being, not by telling. That's the legend, anyway.",
     neutral:
-      "The file on this one is thin, because the number barely shows up. Third and rarest master number. Thirty-three is 3 plus 3 makes 6, the nurturer, running at its highest octave. The old cards close the deck with it: the World, final card of the Major Arcana, every cycle completed and accounted for. It stands for selfless service, spiritual mastery, the integration of everything that came before. One hard statistic for the record: fewer than one in a hundred life path calculations produce a 33.",
+      'The file on this one is thin, because the number barely shows up. Third and rarest master number. Thirty-three is 3 plus 3 makes 6, the nurturer, running at its highest octave. The old cards close the deck with it: the World, final card of the Major Arcana, every cycle completed and accounted for. It stands for selfless service, spiritual mastery, the integration of everything that came before. One hard statistic for the record: fewer than one in a hundred life path calculations produce a 33.',
     shadow:
       "The drawer was heavy when I pulled it. Saviour complex working under the name of service. Self-destruction booked as sacrifice. The shadow of 33 is the master teacher who takes on everybody else's pain — the healer who forgets they're human too, the guide who goes missing inside other people's needs. The weight of this number, in the traditions that use it, is immense; nobody downtown disputes that. The temptation is to collapse back into 6 and keep the caring to your own small circle. Not a charge. Just the cost of the beat.",
   },

@@ -53,10 +53,37 @@ export function sanitizeText(input: string): string {
   return input.replace(HTML_TAG_RE, '').replace(CONTROL_CHARS_KEEP_WHITESPACE, '').slice(0, 10_000);
 }
 
-/** Validate and parse a share URL payload (base64 JSON) */
+/**
+ * Encode a profile input for a share URL. UTF-8 safe and base64url, so the
+ * payload survives names with accents/CJK/emoji and can never contain `/`
+ * or `+` (a raw base64 payload in a URL path segment breaks routing for
+ * some inputs and `btoa` throws on non-Latin-1 characters).
+ */
+export function encodeSharePayload(input: ProfileInput): string {
+  const bytes = new TextEncoder().encode(JSON.stringify(input));
+  let binary = '';
+  for (const b of bytes) binary += String.fromCharCode(b);
+  return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+/** Decode base64url (or legacy base64) UTF-8 bytes to a string. */
+function decodeShareString(encoded: string): string {
+  const b64 = encoded.replace(/-/g, '+').replace(/_/g, '/');
+  const padded = b64 + '='.repeat((4 - (b64.length % 4)) % 4);
+  const binary = atob(padded);
+  const bytes = Uint8Array.from(binary, (c) => c.charCodeAt(0));
+  try {
+    return new TextDecoder('utf-8', { fatal: true }).decode(bytes);
+  } catch {
+    // Legacy links were plain btoa(JSON): Latin-1 bytes
+    return binary;
+  }
+}
+
+/** Validate and parse a share URL payload (base64url JSON; legacy base64 accepted) */
 export function parseSharePayload(encoded: string): ProfileInput | null {
   try {
-    const json = atob(encoded);
+    const json = decodeShareString(encoded);
     const parsed = JSON.parse(json);
 
     if (typeof parsed !== 'object' || parsed === null) return null;

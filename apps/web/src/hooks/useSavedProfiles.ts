@@ -29,9 +29,25 @@ export function defaultLabel(input: ProfileInput): string {
   return `${input.fullBirthName} — ${input.dateOfBirth}`;
 }
 
+function isSavedProfile(x: unknown): x is SavedProfile {
+  if (!x || typeof x !== 'object') return false;
+  const p = x as Record<string, unknown>;
+  const input = p.input as Record<string, unknown> | undefined;
+  return (
+    typeof p.id === 'string' &&
+    typeof p.label === 'string' &&
+    !!input &&
+    typeof input.fullBirthName === 'string' &&
+    typeof input.dateOfBirth === 'string'
+  );
+}
+
 function load(): SavedProfile[] {
   try {
-    return JSON.parse(localStorage.getItem(KEY) ?? '[]') as SavedProfile[];
+    const parsed: unknown = JSON.parse(localStorage.getItem(KEY) ?? '[]');
+    // Validate entries: a malformed record would otherwise crash
+    // profileSignature (and the pages using it) at render time
+    return Array.isArray(parsed) ? parsed.filter(isSavedProfile) : [];
   } catch {
     return [];
   }

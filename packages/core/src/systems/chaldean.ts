@@ -1,5 +1,6 @@
 import type { NumberResult } from '../types.js';
 import { reduceNumber } from '../utils/reduce.js';
+import { toLatinUpper } from '../utils/text.js';
 
 const SYSTEM = 'chaldean' as const;
 
@@ -44,7 +45,7 @@ export function letterValue(char: string): number {
 }
 
 export function reduceName(name: string): NumberResult {
-  const upper = name.toUpperCase();
+  const upper = toLatinUpper(name);
   const letters: { char: string; value: number }[] = [];
 
   for (const char of upper) {
@@ -79,7 +80,7 @@ export function expression(fullBirthName: string): NumberResult {
 }
 
 export function soulUrge(fullBirthName: string): NumberResult {
-  const upper = fullBirthName.toUpperCase();
+  const upper = toLatinUpper(fullBirthName);
   const letters: { char: string; value: number }[] = [];
 
   for (const char of upper) {
@@ -103,7 +104,7 @@ export function soulUrge(fullBirthName: string): NumberResult {
 }
 
 export function personality(fullBirthName: string): NumberResult {
-  const upper = fullBirthName.toUpperCase();
+  const upper = toLatinUpper(fullBirthName);
   const letters: { char: string; value: number }[] = [];
 
   for (const char of upper) {

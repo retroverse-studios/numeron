@@ -19,7 +19,7 @@ export const didYouKnowFacts: Record<number, string[]> = {
   ],
   2: [
     '2 is the only even prime number — and the smallest prime.',
-    'Euler\'s number e (2.718...) reduces to 11, the master number built from two 1s.',
+    "Euler's number e (2.718...) reduces to 11, the master number built from two 1s.",
     'The word "duality" appears in virtually every philosophical tradition on Earth.',
     'In computing, everything reduces to 2 — binary. In numerology, 2 represents the pair.',
     'The Moon (planet of 2) takes roughly 28 days to orbit Earth. 2+8 = 10 → 1. The cycle returns.',
@@ -57,7 +57,7 @@ export const didYouKnowFacts: Record<number, string[]> = {
     'There are 7 notes in the Western musical scale, 7 colours in a rainbow (Newton chose 7 deliberately), and 7 days in a week.',
     'The ancients knew 7 celestial bodies that moved against the fixed stars: Sun, Moon, Mercury, Venus, Mars, Jupiter, Saturn.',
     'Human working memory holds roughly 7 items (Miller\'s Law, 1956). 7 may feel "special" because it sits at our cognitive limit.',
-    'The number of valid 9×9 sudoku grids is 6,670,903,752,021,072,936,960. It reduces to 9, not 7. 7 is the magic constant of Dürer\'s square.',
+    "The number of valid 9×9 sudoku grids is 6,670,903,752,021,072,936,960. It reduces to 9, not 7. 7 is the magic constant of Dürer's square.",
   ],
   8: [
     '8 is 2³ — the first perfect cube after 1. It is the only single-digit perfect power of a perfect power.',
@@ -76,7 +76,7 @@ export const didYouKnowFacts: Record<number, string[]> = {
   11: [
     '11 is the first repunit prime (a prime made of repeating 1s). The next is 1111111111111111111 (19 ones).',
     'The fine structure constant ≈ 1/137, and 1+3+7 = 11. Feynman called 137 "one of the greatest damn mysteries of physics."',
-    'Master numbers are a 20th-century Western invention — most historical numerology systems don\'t use them.',
+    "Master numbers are a 20th-century Western invention — most historical numerology systems don't use them.",
     'In cricket, a team score of 111 is called a "Nelson" and is considered unlucky. 1+1+1 = 3, not 11.',
     '11:11 on a digital clock is the most commonly reported "meaningful" time. This is frequency illusion (the Baader-Meinhof phenomenon), not destiny.',
   ],
@@ -91,7 +91,7 @@ export const didYouKnowFacts: Record<number, string[]> = {
     'Fewer than 1% of life path calculations produce 33. This is arithmetic, not rarity by design.',
     '33 is the largest positive integer that cannot be expressed as a sum of different triangular numbers.',
     'The 33rd prime number is 137 — the fine structure constant again.',
-    'Jesus was traditionally said to have been crucified at age 33. The number appears in Freemasonry (33 degrees) and Dante\'s Divine Comedy (33 cantos per section).',
-    'If you write Planck\'s constant to 9 significant figures, the digits sum to 33. We chose 9 figures because 33 is more interesting than 2. This is honest cherry-picking.',
+    "Jesus was traditionally said to have been crucified at age 33. The number appears in Freemasonry (33 degrees) and Dante's Divine Comedy (33 cantos per section).",
+    "If you write Planck's constant to 9 significant figures, the digits sum to 33. We chose 9 figures because 33 is more interesting than 2. This is honest cherry-picking.",
   ],
 };

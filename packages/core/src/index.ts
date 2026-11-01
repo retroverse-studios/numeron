@@ -24,6 +24,7 @@ export {
   sanitizeAddress,
   sanitizeText,
   parseSharePayload,
+  encodeSharePayload,
 } from './utils/sanitize.js';
 
 // Profile generation
@@ -90,13 +91,7 @@ export type {
 } from './interpretations/index.js';
 
 // AI reading (live mode — user's own key, browser-direct)
-export {
-  VOICES,
-  DEFAULT_AI_MODEL,
-  buildReadingPrompt,
-  aiReading,
-  aiProvenance,
-} from './ai.js';
+export { VOICES, DEFAULT_AI_MODEL, buildReadingPrompt, aiReading, aiProvenance } from './ai.js';
 export type { AiOptions } from './ai.js';
 
 // Insights (session stats, did-you-know facts)

@@ -1,0 +1,43 @@
+name: CI
+
+# Typecheck, test, and build every maintained package on push/PR.
+# (The Pages workflow builds for deployment but never ran the test suite.)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm -r --filter '!numeron-tauri' typecheck
+
+      - name: Test
+        run: pnpm -r --if-present test
+
+      - name: Build
+        run: |
+          pnpm --filter @numeron/core build
+          pnpm --filter @numeron/web build
+          pnpm --filter @numeron/landing build
+          pnpm --filter numeron-tauri build:frontend

@@ -18,8 +18,7 @@ export function detectEdgeCases(input: ProfileInput): EdgeCaseWarning[] {
   if (/\d/.test(name)) {
     warnings.push({
       field: 'name',
-      message:
-        'Digits in names are treated as their numeric value, which varies by tradition.',
+      message: 'Digits in names are treated as their numeric value, which varies by tradition.',
     });
   }
 
@@ -63,7 +62,8 @@ export function detectEdgeCases(input: ProfileInput): EdgeCaseWarning[] {
   if (input.dateOfBirth > today) {
     warnings.push({
       field: 'date',
-      message: '> TEMPORAL ANOMALY DETECTED // we can calculate your numbers, but we recommend existing first',
+      message:
+        '> TEMPORAL ANOMALY DETECTED // we can calculate your numbers, but we recommend existing first',
     });
   }
 
@@ -75,8 +75,7 @@ export function detectEdgeCases(input: ProfileInput): EdgeCaseWarning[] {
     if (!/\d/.test(addr) && addr.length > 0) {
       warnings.push({
         field: 'address',
-        message:
-          'No street number detected. House number calculation requires a numeric address.',
+        message: 'No street number detected. House number calculation requires a numeric address.',
       });
     }
 

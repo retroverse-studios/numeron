@@ -4,11 +4,10 @@ import { TerminalCard } from '../components/TerminalCard';
 export function About() {
   return (
     <div className="max-w-3xl mx-auto space-y-8">
-      <h1 className="font-terminal text-2xl text-[var(--accent)] text-glow">
-        {'> '}ABOUT NUMERON
-      </h1>
+      <h1 className="font-terminal text-2xl text-[var(--accent)] text-glow">{'> '}ABOUT NUMERON</h1>
       <p className="font-body text-sm text-[var(--text-secondary)]">
-        A Retroverse Studios project. Smart, playful, slightly tongue-in-cheek. Never credulous. Never dismissive.
+        A Retroverse Studios project. Smart, playful, slightly tongue-in-cheek. Never credulous.
+        Never dismissive.
       </p>
 
       {aboutSections.map((section) => (

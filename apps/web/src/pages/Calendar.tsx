@@ -117,9 +117,7 @@ export function Calendar() {
                 `}
                 title={`Day ${d.day}: Personal Day ${d.personalDay}${d.isPowerDay ? ' (power day)' : ''}`}
               >
-                <span className="font-terminal text-xs text-[var(--text-secondary)]">
-                  {d.day}
-                </span>
+                <span className="font-terminal text-xs text-[var(--text-secondary)]">{d.day}</span>
                 <span
                   className={`font-terminal text-lg ${NUMBER_COLORS[d.personalDay] ?? 'text-[var(--accent)]'}`}
                 >

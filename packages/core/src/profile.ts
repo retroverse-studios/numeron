@@ -29,13 +29,18 @@ export function generateProfile(
   system: NumerologySystem = 'pythagorean',
 ): NumerologyProfile {
   const mod = systems[system];
-  const today = input.targetDate ?? new Date().toISOString().split('T')[0];
+  // Local calendar date (not UTC): personal day/month/year should flip at
+  // local midnight, like the Calendar page
+  const now = new Date();
+  const today =
+    input.targetDate ??
+    `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
 
   const lp = mod.lifePath(input.dateOfBirth);
   const expr = mod.expression(input.fullBirthName);
 
-  const su = mod.soulUrge?.(input.fullBirthName) ?? reduceNumber(0, system);
-  const pers = mod.personality?.(input.fullBirthName) ?? reduceNumber(0, system);
+  const su = mod.soulUrge?.(input.fullBirthName);
+  const pers = mod.personality?.(input.fullBirthName);
 
   // Maturity = lifePath + expression, reduced
   const maturitySum = lp.value + expr.value;
@@ -59,7 +64,7 @@ export function generateProfile(
   const hidden = system === 'pythagorean' ? pythagorean.hiddenPassion(input.fullBirthName) : [];
 
   // Collect all main results for karma/master detection
-  const mainResults = [lp, expr, su, pers, maturity, birthday];
+  const mainResults = [lp, expr, ...(su ? [su] : []), ...(pers ? [pers] : []), maturity, birthday];
   const karmaDebt = pythagorean.detectKarmaDebt(mainResults);
   const masterNumbers = pythagorean.detectMasterNumbers(mainResults);
 

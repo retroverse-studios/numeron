@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { TerminalCard } from '../components/TerminalCard';
-import { pythagorean } from '@numeron/core';
+import { pythagorean, reduceNumber } from '@numeron/core';
 
 type CalcType = 'expression' | 'lifePath';
 
@@ -9,19 +9,27 @@ export function ReverseLookup() {
   const [calcType, setCalcType] = useState<CalcType>('expression');
   const [candidateName, setCandidateName] = useState('');
 
-  const candidateResult =
-    candidateName.trim().length > 0 ? pythagorean.expression(candidateName) : null;
+  // One candidate result, computed with the active mode's method
+  const candidateResult = (() => {
+    if (!candidateName.trim()) return null;
+    if (calcType === 'expression') return pythagorean.expression(candidateName);
+    // Date input yields YYYY-MM-DD only when complete
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(candidateName)) return null;
+    try {
+      return pythagorean.lifePath(candidateName);
+    } catch {
+      return null;
+    }
+  })();
 
   const isMatch = candidateResult !== null && candidateResult.value === targetNumber;
 
-  // Show what letter sums produce the target
+  // Letter sums that actually reduce to the target. Computed with the real
+  // reducer: a +9 ladder is right for single digits (digital root) but wrong
+  // for master numbers (20 reduces to 2, not 11; 29 reaches 11).
   const possibleSums: number[] = [];
-  for (let s = targetNumber; s <= 200; s += 9) {
-    possibleSums.push(s);
-  }
-  // Master numbers: if target is 11, 22, 33 the sum IS the target
-  if ([11, 22, 33].includes(targetNumber) && !possibleSums.includes(targetNumber)) {
-    possibleSums.unshift(targetNumber);
+  for (let s = 1; s <= 200 && possibleSums.length < 24; s++) {
+    if (reduceNumber(s, 'pythagorean').value === targetNumber) possibleSums.push(s);
   }
 
   return (
@@ -159,30 +167,32 @@ export function ReverseLookup() {
                   )}
                 </>
               )}
-              {calcType === 'lifePath' && candidateName && (() => {
-                try {
-                  const lp = pythagorean.lifePath(candidateName);
-                  const match = lp.value === targetNumber;
-                  return (
-                    <>
-                      <span className={`text-2xl ${match ? 'text-[var(--accent-green)]' : ''}`}>
-                        {lp.value}
-                      </span>
-                      {match ? (
-                        <span className="ml-3 text-xs text-glow-green">
-                          {'> '}MATCH! This date produces Life Path {targetNumber}.
+              {calcType === 'lifePath' &&
+                candidateName &&
+                (() => {
+                  try {
+                    const lp = pythagorean.lifePath(candidateName);
+                    const match = lp.value === targetNumber;
+                    return (
+                      <>
+                        <span className={`text-2xl ${match ? 'text-[var(--accent-green)]' : ''}`}>
+                          {lp.value}
                         </span>
-                      ) : (
-                        <span className="ml-3 text-xs">
-                          {'> '}Life Path {lp.value}, not {targetNumber}.
-                        </span>
-                      )}
-                    </>
-                  );
-                } catch {
-                  return <span className="text-xs">{'> '}Enter a valid date</span>;
-                }
-              })()}
+                        {match ? (
+                          <span className="ml-3 text-xs text-glow-green">
+                            {'> '}MATCH! This date produces Life Path {targetNumber}.
+                          </span>
+                        ) : (
+                          <span className="ml-3 text-xs">
+                            {'> '}Life Path {lp.value}, not {targetNumber}.
+                          </span>
+                        )}
+                      </>
+                    );
+                  } catch {
+                    return <span className="text-xs">{'> '}Enter a valid date</span>;
+                  }
+                })()}
             </div>
           )}
         </div>
