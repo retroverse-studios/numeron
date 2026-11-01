@@ -26,6 +26,10 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      # @numeron/pdf and the apps typecheck against core's built dist types
+      - name: Build core (provides type declarations)
+        run: pnpm --filter @numeron/core build
+
       - name: Lint
         run: pnpm lint
 
