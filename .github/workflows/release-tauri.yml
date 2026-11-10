@@ -9,6 +9,7 @@ name: Release Tauri App
 on:
   push:
     tags: ["v*"]
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -55,6 +56,20 @@ jobs:
       # Windows runners, so packages are listed explicitly.)
       - run: pnpm --filter @numeron/core build
 
+      - name: Prepare App Store Connect API key
+        if: startsWith(matrix.platform, 'macos')
+        env:
+          APPLE_API_KEY_CONTENT: ${{ secrets.APPLE_API_KEY_CONTENT }}
+          APPLE_API_KEY: ${{ secrets.APPLE_API_KEY }}
+        run: |
+          if [ -n "$APPLE_API_KEY_CONTENT" ] && [ -n "$APPLE_API_KEY" ]; then
+            mkdir -p ~/.appstoreconnect/private_keys
+            printf '%s' "$APPLE_API_KEY_CONTENT" | openssl base64 -d -A > ~/.appstoreconnect/private_keys/AuthKey_${APPLE_API_KEY}.p8
+            chmod 600 ~/.appstoreconnect/private_keys/AuthKey_${APPLE_API_KEY}.p8
+          else
+            echo "No API key secrets; notarization will fall back to Apple ID"
+          fi
+
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -63,8 +78,8 @@ jobs:
           APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
           APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
           APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
-          APPLE_ID: ${{ secrets.APPLE_ID }}
-          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+          APPLE_API_KEY: ${{ secrets.APPLE_API_KEY }}
+          APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           # Updater artifact signing (tauri signer generate); latest.json on the
           # release points the in-app updater at these signed artifacts.
@@ -72,14 +87,30 @@ jobs:
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
         with:
           projectPath: apps/tauri
-          tagName: ${{ github.ref_name }}
-          releaseName: "NUMERON ${{ github.ref_name }}"
+          tagName: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || '' }}
+          releaseName: ${{ startsWith(github.ref, 'refs/tags/') && format('NUMERON {0}', github.ref_name) || '' }}
           releaseDraft: true
           includeUpdaterJson: true
           args: ${{ matrix.args }}
 
+      - name: Upload artifacts (manual runs)
+        if: ${{ !startsWith(github.ref, 'refs/tags/') }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: numeron-${{ matrix.platform }}-${{ strategy.job-index }}
+          path: |
+            apps/tauri/src-tauri/target/**/release/bundle/**/*.dmg
+            apps/tauri/src-tauri/target/**/release/bundle/**/*.app.tar.gz
+            apps/tauri/src-tauri/target/**/release/bundle/**/*.AppImage
+            apps/tauri/src-tauri/target/**/release/bundle/**/*.deb
+            apps/tauri/src-tauri/target/**/release/bundle/**/*.msi
+            apps/tauri/src-tauri/target/**/release/bundle/**/*.exe
+          if-no-files-found: warn
+          retention-days: 5
+
   publish:
     needs: build
+    if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     steps:
       - name: Publish the release
